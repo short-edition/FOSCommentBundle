@@ -13,6 +13,7 @@ namespace FOS\CommentBundle\Controller;
 
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\ThreadInterface;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @author Alexander <iam.asm89@gmail.com>
  */
-class ThreadController extends AbstractController
+class ThreadController extends AbstractFOSRestController
 {
     const VIEW_FLAT = 'flat';
     const VIEW_TREE = 'tree';
@@ -44,7 +45,7 @@ class ThreadController extends AbstractController
             ->setData(['form' => $form->createView()])
             ->setTemplate('@FOSComment/Thread/new.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -66,7 +67,7 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setData(['thread' => $thread]);
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -89,7 +90,7 @@ class ThreadController extends AbstractController
         $view = View::create()
             ->setData(['threads' => $threads]);
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -115,10 +116,10 @@ class ThreadController extends AbstractController
             // Add the thread
             $threadManager->saveThread($thread);
 
-            return $this->getViewHandler()->handle($this->onCreateThreadSuccess($form));
+            return $this->handleView($this->onCreateThreadSuccess($form));
         }
 
-        return $this->getViewHandler()->handle($this->onCreateThreadError($form));
+        return $this->handleView($this->onCreateThreadError($form));
     }
 
     /**
@@ -147,7 +148,7 @@ class ThreadController extends AbstractController
             ->setData(['form' => $form, 'id' => $id, 'isCommentable' => $thread->isCommentable()])
             ->setTemplate('@FOSComment/Thread/commentable.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -174,10 +175,10 @@ class ThreadController extends AbstractController
         if ($form->isValid()) {
             $manager->saveThread($thread);
 
-            return $this->getViewHandler()->handle($this->onOpenThreadSuccess($form));
+            return $this->handleView($this->onOpenThreadSuccess($form));
         }
 
-        return $this->getViewHandler()->handle($this->onOpenThreadError($form));
+        return $this->handleView($this->onOpenThreadError($form));
     }
 
     /**
@@ -212,7 +213,7 @@ class ThreadController extends AbstractController
             ])
             ->setTemplate('@FOSComment/Thread/comment_new.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -242,7 +243,7 @@ class ThreadController extends AbstractController
             ->setData(['comment' => $comment, 'thread' => $thread, 'parent' => $parent, 'depth' => $comment->getDepth()])
             ->setTemplate('@FOSComment/Thread/comment.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -272,7 +273,7 @@ class ThreadController extends AbstractController
             ->setData(['form' => $form, 'id' => $id, 'commentId' => $commentId])
             ->setTemplate('@FOSComment/Thread/comment_remove.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -300,11 +301,11 @@ class ThreadController extends AbstractController
 
         if ($form->isValid()) {
             if (false !== $manager->saveComment($comment)) {
-                return $this->getViewHandler()->handle($this->onRemoveThreadCommentSuccess($form, $id));
+                return $this->handleView($this->onRemoveThreadCommentSuccess($form, $id));
             }
         }
 
-        return $this->getViewHandler()->handle($this->onRemoveThreadCommentError($form, $id));
+        return $this->handleView($this->onRemoveThreadCommentError($form, $id));
     }
 
     /**
@@ -334,7 +335,7 @@ class ThreadController extends AbstractController
             ])
             ->setTemplate('@FOSComment/Thread/comment_edit.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -363,11 +364,11 @@ class ThreadController extends AbstractController
 
         if ($form->isValid()) {
             if (false !== $commentManager->saveComment($comment)) {
-                return $this->getViewHandler()->handle($this->onEditCommentSuccess($form, $id, $comment->getParent()));
+                return $this->handleView($this->onEditCommentSuccess($form, $id, $comment->getParent()));
             }
         }
 
-        return $this->getViewHandler()->handle($this->onEditCommentError($form, $id, $comment->getParent()));
+        return $this->handleView($this->onEditCommentError($form, $id, $comment->getParent()));
     }
 
     /**
@@ -403,7 +404,7 @@ class ThreadController extends AbstractController
                     ->setData(['errors' => $errors])
                     ->setTemplate('@FOSComment/Thread/errors.html.twig');
 
-                return $this->getViewHandler()->handle($view);
+                return $this->handleView($view);
             }
 
             // Decode the permalink for cleaner storage (it is encoded on the client side)
@@ -452,7 +453,7 @@ class ThreadController extends AbstractController
             $this->get('fos_rest.view_handler')->registerHandler('rss', $templatingHandler);
         }
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -486,11 +487,11 @@ class ThreadController extends AbstractController
 
         if ($form->isValid()) {
             if (false !== $commentManager->saveComment($comment)) {
-                return $this->getViewHandler()->handle($this->onCreateCommentSuccess($form, $id, $parent));
+                return $this->handleView($this->onCreateCommentSuccess($form, $id, $parent));
             }
         }
 
-        return $this->getViewHandler()->handle($this->onCreateCommentError($form, $id, $parent));
+        return $this->handleView($this->onCreateCommentError($form, $id, $parent));
     }
 
     /**
@@ -516,7 +517,7 @@ class ThreadController extends AbstractController
             ])
             ->setTemplate('@FOSComment/Thread/comment_votes.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -551,7 +552,7 @@ class ThreadController extends AbstractController
             ])
             ->setTemplate('@FOSComment/Thread/vote_new.html.twig');
 
-        return $this->getViewHandler()->handle($view);
+        return $this->handleView($view);
     }
 
     /**
@@ -582,10 +583,10 @@ class ThreadController extends AbstractController
         if ($form->isValid()) {
             $voteManager->saveVote($vote);
 
-            return $this->getViewHandler()->handle($this->onCreateVoteSuccess($form, $id, $commentId));
+            return $this->handleView($this->onCreateVoteSuccess($form, $id, $commentId));
         }
 
-        return $this->getViewHandler()->handle($this->onCreateVoteError($form, $id, $commentId));
+        return $this->handleView($this->onCreateVoteError($form, $id, $commentId));
     }
 
     /**
@@ -837,7 +838,7 @@ class ThreadController extends AbstractController
     /**
      * @return \FOS\RestBundle\View\ViewHandler
      */
-    private function getViewHandler()
+    protected function getViewHandler()
     {
         return $this->container->get('fos_rest.view_handler');
     }
