@@ -139,7 +139,7 @@
                         serializedData,
                         // success
                         function(data, statusCode) {
-                            FOS_COMMENT.appendComment(data, that);
+                            FOS_COMMENT.appendComment(data, that, true);
                             that.trigger('fos_comment_new_comment', data);
                             if (that.data() && that.data().parent !== '') {
                                 that.closest('.fos_comment_comment_form_holder').remove();
@@ -349,7 +349,7 @@
             );
         },
 
-        appendComment: function(commentHtml, form) {
+        appendComment: function(commentHtml, form, append = false) {
             var form_data = form.data();
 
             if('' != form_data.parent) {
@@ -360,8 +360,7 @@
                     .children('.fos_comment_comment_replies');
 
                 reply_button_holder.removeClass('fos_comment_replying');
-
-                comment_element.prepend(commentHtml);
+                append ? comment_element.append(commentHtml) : comment_element.prepend(commentHtml);
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
             } else {
                 // Insert the comment
