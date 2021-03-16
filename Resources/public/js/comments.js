@@ -361,7 +361,7 @@
 
                 reply_button_holder.removeClass('fos_comment_replying');
 
-                comment_element.prepend(commentHtml);
+                comment_element.append(commentHtml);
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
             } else {
                 // Insert the comment
