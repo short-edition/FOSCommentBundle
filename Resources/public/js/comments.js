@@ -364,7 +364,7 @@
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
             } else {
                 // Insert the comment
-                form.after(commentHtml);
+                $('.forum').last().after(commentHtml);
                 form.trigger('fos_comment_add_comment', commentHtml);
 
                 // "reset" the form
