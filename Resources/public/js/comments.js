@@ -364,8 +364,12 @@
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
             } else {
                 // Insert the comment
-                let lastAnswer = $('.forum').last();
-                lastAnswer.length ? lastAnswer.after(commentHtml) : form.after(commentHtml);
+                if ($(commentHtml).hasClass('forum') && $(commentHtml).hasClass('fos_comment_comment_depth_0')) {
+                    $('.fos_comment_thread').last().append(commentHtml);
+                } else {
+                    form.after(commentHtml);
+                }
+                
                 form.trigger('fos_comment_add_comment', commentHtml);
 
                 // "reset" the form
