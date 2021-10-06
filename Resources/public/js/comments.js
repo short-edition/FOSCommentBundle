@@ -364,7 +364,8 @@
                 comment_element.trigger('fos_comment_add_comment', commentHtml);
             } else {
                 // Insert the comment
-                form.after(commentHtml);
+                let lastAnswer = $('.forum').last();
+                lastAnswer.length ? lastAnswer.after(commentHtml) : form.after(commentHtml);
                 form.trigger('fos_comment_add_comment', commentHtml);
 
                 // "reset" the form
