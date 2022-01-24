@@ -24,7 +24,7 @@
         "issues": "https://github.com/FriendsOfSymfony/FOSCommentBundle/issues"
     },
     "require": {
-        "php": "^7.3",
+        "php": "^8.0",
         "friendsofsymfony/rest-bundle": "^3.0-dev",
         "jms/serializer-bundle": "2.0|^3.5",
         "symfony/framework-bundle": "~3.4|^4.3|^5.0",
