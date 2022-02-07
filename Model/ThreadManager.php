@@ -25,25 +25,17 @@ use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
  */
 abstract class ThreadManager implements ThreadManagerInterface
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $dispatcher;
+    protected EventDispatcherInterface $dispatcher;
 
-    /**
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * @param string $id
-     *
-     * @return ThreadInterface
      */
-    public function findThreadById($id)
+    public function findThreadById($id): ThreadInterface
     {
         return $this->findThreadBy(['id' => $id]);
     }
@@ -52,10 +44,8 @@ abstract class ThreadManager implements ThreadManagerInterface
      * Creates an empty comment thread instance.
      *
      * @param bool $id
-     *
-     * @return Thread
      */
-    public function createThread($id = null)
+    public function createThread($id = null): Thread
     {
         $class = $this->getClass();
         $thread = new $class();
@@ -65,7 +55,7 @@ abstract class ThreadManager implements ThreadManagerInterface
         }
 
         $event = new ThreadEvent($thread);
-        $this->dispatch($event, Events::THREAD_CREATE);
+        $this->dispatcher->dispatch($event, Events::THREAD_CREATE);
 
         return $thread;
     }
@@ -75,24 +65,15 @@ abstract class ThreadManager implements ThreadManagerInterface
      *
      * @param ThreadInterface $thread
      */
-    public function saveThread(ThreadInterface $thread)
+    public function saveThread(ThreadInterface $thread): void
     {
         $event = new ThreadEvent($thread);
-        $this->dispatch($event, Events::THREAD_PRE_PERSIST);
+        $this->dispatcher->dispatch($event, Events::THREAD_PRE_PERSIST);
 
         $this->doSaveThread($thread);
 
         $event = new ThreadEvent($thread);
-        $this->dispatch($event, Events::THREAD_POST_PERSIST);
-    }
-
-    /**
-     * @param Event  $event
-     * @param string $eventName
-     */
-    protected function dispatch(Event $event, $eventName)
-    {
-        $this->dispatcher->dispatch($event, $eventName);
+        $this->dispatcher->dispatch($event, Events::THREAD_POST_PERSIST);
     }
 
     /**
