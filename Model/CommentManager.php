@@ -29,25 +29,15 @@ use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
  */
 abstract class CommentManager implements CommentManagerInterface
 {
-    /**
-     * @var SortingFactory
-     */
-    protected $sortingFactory;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $dispatcher;
+    protected SortingFactory $sortingFactory;
+    protected EventDispatcherInterface $dispatcher;
 
     /**
      * Constructor.
-     *
-     * @param EventDispatcherInterface $dispatcher A dispatcher instance
-     * @param SortingFactory           $factory    A factory instance
      */
     public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory)
     {
-        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
+        $this->dispatcher = $dispatcher;
         $this->sortingFactory = $factory;
     }
 
@@ -66,7 +56,7 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $event = new CommentEvent($comment);
-        $this->dispatch($event, Events::COMMENT_CREATE);
+        $this->dispatcher->dispatch($event, Events::COMMENT_CREATE);
 
         return $comment;
     }
@@ -74,7 +64,7 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
+    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null): array
     {
         $comments = $this->findCommentsByThread($thread, $depth);
         $sorter = $this->sortingFactory->getSorter($sorter);
@@ -85,14 +75,14 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function saveComment(CommentInterface $comment)
+    public function saveComment(CommentInterface $comment): bool
     {
         if (null === $comment->getThread()) {
             throw new InvalidArgumentException('The comment must have a thread');
         }
 
         $event = new CommentPersistEvent($comment);
-        $this->dispatch($event, Events::COMMENT_PRE_PERSIST);
+        $this->dispatcher->dispatch($event, Events::COMMENT_PRE_PERSIST);
 
         if ($event->isPersistenceAborted()) {
             return false;
@@ -101,7 +91,7 @@ abstract class CommentManager implements CommentManagerInterface
         $this->doSaveComment($comment);
 
         $event = new CommentEvent($comment);
-        $this->dispatch($event, Events::COMMENT_POST_PERSIST);
+        $this->dispatcher->dispatch($event, Events::COMMENT_POST_PERSIST);
 
         return true;
     }
@@ -118,7 +108,7 @@ abstract class CommentManager implements CommentManagerInterface
      *
      * @return array A tree of comments
      */
-    protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null)
+    protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null): array
     {
         $tree = new Tree();
 
@@ -138,25 +128,8 @@ abstract class CommentManager implements CommentManagerInterface
         }
 
         $tree = $tree->toArray();
-        $tree = $sorter->sort($tree);
 
-        return $tree;
-    }
-
-    /**
-     * @param Event  $event
-     * @param string $eventName
-     */
-    protected function dispatch(Event $event, $eventName)
-    {
-        // LegacyEventDispatcherProxy exists in Symfony >= 4.3
-        if (class_exists(LegacyEventDispatcherProxy::class)) {
-            // New Symfony 4.3 EventDispatcher signature
-            $this->dispatcher->dispatch($event, $eventName);
-        } else {
-            // Old EventDispatcher signature
-            $this->dispatcher->dispatch($eventName, $event);
-        }
+        return $sorter->sort($tree);
     }
 
     /**

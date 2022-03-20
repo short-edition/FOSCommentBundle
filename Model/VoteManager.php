@@ -11,10 +11,10 @@
 
 namespace FOS\CommentBundle\Model;
 
-use FOS\CommentBundle\Event\Event;
 use FOS\CommentBundle\Event\VoteEvent;
 use FOS\CommentBundle\Event\VotePersistEvent;
 use FOS\CommentBundle\Events;
+use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
@@ -25,29 +25,22 @@ use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
  */
 abstract class VoteManager implements VoteManagerInterface
 {
-    /**
-     * @var
-     */
-    protected $dispatcher;
+    protected EventDispatcherInterface $dispatcher;
 
     /**
      * Constructor.
-     *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = class_exists(LegacyEventDispatcherProxy::class) ? LegacyEventDispatcherProxy::decorate($dispatcher) : $dispatcher;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * Finds a vote by id.
      *
      * @param  $id
-     *
-     * @return VoteInterface
      */
-    public function findVoteById($id)
+    public function findVoteById($id): VoteInterface
     {
         return $this->findVoteBy(['id' => $id]);
     }
@@ -56,17 +49,15 @@ abstract class VoteManager implements VoteManagerInterface
      * Creates a Vote object.
      *
      * @param VotableCommentInterface $comment
-     *
-     * @return VoteInterface
      */
-    public function createVote(VotableCommentInterface $comment)
+    public function createVote(VotableCommentInterface $comment): VoteInterface
     {
         $class = $this->getClass();
         $vote = new $class();
         $vote->setComment($comment);
 
         $event = new VoteEvent($vote);
-        $this->dispatch($event, Events::VOTE_CREATE);
+        $this->dispatcher->dispatch($event, Events::VOTE_CREATE);
 
         return $vote;
     }
@@ -74,14 +65,14 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * @param VoteInterface $vote
      */
-    public function saveVote(VoteInterface $vote)
+    public function saveVote(VoteInterface $vote): void
     {
         if (null === $vote->getComment()) {
-            throw new \InvalidArgumentException('Vote passed into saveVote must have a comment');
+            throw new InvalidArgumentException('Vote passed into saveVote must have a comment');
         }
 
         $event = new VotePersistEvent($vote);
-        $this->dispatch($event, Events::VOTE_PRE_PERSIST);
+        $this->dispatcher->dispatch($event, Events::VOTE_PRE_PERSIST);
 
         if ($event->isPersistenceAborted()) {
             return;
@@ -90,23 +81,7 @@ abstract class VoteManager implements VoteManagerInterface
         $this->doSaveVote($vote);
 
         $event = new VoteEvent($vote);
-        $this->dispatch($event, Events::VOTE_POST_PERSIST);
-    }
-
-    /**
-     * @param Event  $event
-     * @param string $eventName
-     */
-    protected function dispatch(Event $event, $eventName)
-    {
-        // LegacyEventDispatcherProxy exists in Symfony >= 4.3
-        if (class_exists(LegacyEventDispatcherProxy::class)) {
-            // New Symfony 4.3 EventDispatcher signature
-            $this->dispatcher->dispatch($event, $eventName);
-        } else {
-            // Old EventDispatcher signature
-            $this->dispatcher->dispatch($eventName, $event);
-        }
+        $this->dispatcher->dispatch($event, Events::VOTE_POST_PERSIST);
     }
 
     /**
