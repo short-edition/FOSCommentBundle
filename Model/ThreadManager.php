@@ -35,7 +35,7 @@ abstract class ThreadManager implements ThreadManagerInterface
     /**
      * @param string $id
      */
-    public function findThreadById($id): ThreadInterface
+    public function findThreadById($id): ?ThreadInterface
     {
         return $this->findThreadBy(['id' => $id]);
     }
