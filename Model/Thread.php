@@ -26,7 +26,7 @@ abstract class Thread implements ThreadInterface
      *
      * @var string
      */
-    protected string $id;
+    protected int $id;
 
     /**
      * Tells if new comments can be added in this thread.
@@ -67,7 +67,7 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -77,7 +77,7 @@ abstract class Thread implements ThreadInterface
      *
      * @return null
      */
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }

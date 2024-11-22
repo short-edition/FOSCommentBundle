@@ -26,12 +26,12 @@ interface ThreadInterface
      *
      * @return string
      */
-    public function getId(): string;
+    public function getId(): int;
 
     /**
      * @param string
      */
-    public function setId(string $id);
+    public function setId(int $id);
 
     /**
      * Url of the page where the thread lives.

@@ -26,7 +26,7 @@ abstract class Comment implements CommentInterface
      *
      * @var mixed
      */
-    protected mixed $id;
+    protected int $id;
 
     /**
      * Parent comment id.
@@ -93,7 +93,7 @@ abstract class Comment implements CommentInterface
      *
      * @return mixed
      */
-    public function getId(): mixed
+    public function getId(): int
     {
         return $this->id;
     }

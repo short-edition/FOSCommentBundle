@@ -24,7 +24,7 @@ abstract class Vote implements VoteInterface
     /**
      * @var mixed
      */
-    protected mixed $id;
+    protected int $id;
 
     /**
      * @var VotableCommentInterface
@@ -65,7 +65,7 @@ abstract class Vote implements VoteInterface
      *
      * @return mixed
      */
-    public function getId(): mixed
+    public function getId(): int
     {
         return $this->id;
     }
