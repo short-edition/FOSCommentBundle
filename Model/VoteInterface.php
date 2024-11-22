@@ -32,7 +32,7 @@ interface VoteInterface
     /**
      * @return SignedCommentInterface
      */
-    public function getComment(): CommentInterface;
+    public function getComment(): ?CommentInterface;
 
     /**
      * @param VotableCommentInterface $comment

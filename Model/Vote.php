@@ -29,7 +29,7 @@ abstract class Vote implements VoteInterface
     /**
      * @var VotableCommentInterface
      */
-    protected CommentInterface $comment;
+    protected ?CommentInterface $comment = null;
 
     /**
      * @var DateTime
@@ -122,7 +122,7 @@ abstract class Vote implements VoteInterface
      *
      * @return VotableCommentInterface
      */
-    public function getComment(): CommentInterface
+    public function getComment(): ?CommentInterface
     {
         return $this->comment;
     }

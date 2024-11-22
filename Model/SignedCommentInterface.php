@@ -32,5 +32,5 @@ interface SignedCommentInterface extends CommentInterface
      *
      * @return UserInterface
      */
-    public function getAuthor(): UserInterface;
+    public function getAuthor(): ?UserInterface;
 }

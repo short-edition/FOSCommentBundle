@@ -32,7 +32,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected mixed $id;
+    protected ?int $id = null;
 
     /**
      * Thread of this comment.
@@ -90,7 +90,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @return string
      */
-    public function getAuthor(): UserInterface
+    public function getAuthor(): ?UserInterface
     {
         return $this->author;
     }
