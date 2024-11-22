@@ -65,7 +65,7 @@ class VoteManager extends BaseVoteManager
      *
      * @return VoteInterface
      */
-    public function findVoteBy(array $criteria): VoteInterface
+    public function findVoteBy(array $criteria): ?VoteInterface
     {
         return $this->repository->findOneBy($criteria);
     }

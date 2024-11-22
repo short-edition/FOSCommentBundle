@@ -50,7 +50,7 @@ interface VoteManagerInterface
      *
      * @return VoteInterface
      */
-    public function findVoteBy(array $criteria): VoteInterface;
+    public function findVoteBy(array $criteria): ?VoteInterface;
 
     /**
      * Finds a vote by id.
