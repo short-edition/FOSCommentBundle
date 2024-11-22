@@ -26,7 +26,7 @@ interface ThreadManagerInterface
      *
      * @return ThreadInterface
      */
-    public function findThreadById(string $id): ?ThreadInterface;
+    public function findThreadById(int $id): ?ThreadInterface;
 
     /**
      * Finds one comment thread by the given criteria.
@@ -60,7 +60,7 @@ interface ThreadManagerInterface
      *
      * @return Thread
      */
-    public function createThread(?string $id = null): Thread;
+    public function createThread(?int $id = null): Thread;
 
     /**
      * Saves a thread.

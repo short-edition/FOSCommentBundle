@@ -52,7 +52,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadById(string $id): ThreadInterface
+    public function findThreadById(int $id): ThreadInterface
     {
         $thread = $this->realManager->findThreadById($id);
 
@@ -112,7 +112,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createThread(?string $id = null): \FOS\CommentBundle\Model\Thread
+    public function createThread(?int $id = null): \FOS\CommentBundle\Model\Thread
     {
         return $this->realManager->createThread($id);
     }
