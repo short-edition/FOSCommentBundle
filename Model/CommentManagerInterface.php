@@ -35,7 +35,7 @@ interface CommentManagerInterface
      *
      * @return CommentInterface[] An array of commentInterfaces
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null);
+    public function findCommentsByThread(ThreadInterface $thread, ?int $depth = null, ?string $sorterAlias = null): array;
 
     /**
      * Returns all thread comments in a nested array.
@@ -67,7 +67,7 @@ interface CommentManagerInterface
      *                ...
      *                )
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sorterAlias = null, $depth = null);
+    public function findCommentTreeByThread(ThreadInterface $thread, ?string $sorterAlias = null, ?int $depth = null): array;
 
     /**
      * Returns a partial comment tree based on a specific parent commentId.
@@ -77,7 +77,7 @@ interface CommentManagerInterface
      *
      * @return array See findCommentTreeByThread()
      */
-    public function findCommentTreeByCommentId($commentId, $sorterAlias = null);
+    public function findCommentTreeByCommentId(mixed $commentId, ?string $sorterAlias = null): array;
 
     /**
      * Saves a comment to the persistence backend used.
@@ -93,7 +93,7 @@ interface CommentManagerInterface
      *
      * @return CommentInterface|null The comment or null when no comment found
      */
-    public function findCommentById($id);
+    public function findCommentById($id): ?CommentInterface;
 
     /**
      * Creates a new comment object.
@@ -103,7 +103,7 @@ interface CommentManagerInterface
      *
      * @return CommentInterface The created comment
      */
-    public function createComment(ThreadInterface $thread, CommentInterface $parent = null);
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null): CommentInterface;
 
     /**
      * Checks if the comment was already persisted before, or if it's a new one.
@@ -112,12 +112,12 @@ interface CommentManagerInterface
      *
      * @return bool true if it's a new comment, false otherwise
      */
-    public function isNewComment(CommentInterface $comment);
+    public function isNewComment(CommentInterface $comment): bool;
 
     /**
      * Returns the fully qualified comment class name.
      *
      * @return string
      */
-    public function getClass();
+    public function getClass(): string;
 }

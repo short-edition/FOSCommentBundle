@@ -21,12 +21,12 @@ class Tree
     /**
      * @var CommentInterface|null
      */
-    private $comment;
+    private ?CommentInterface $comment;
 
     /**
      * @var array of Tree
      */
-    private $children = [];
+    private array $children = [];
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class Tree
      *
      * @return void
      */
-    public function add(CommentInterface $comment)
+    public function add(CommentInterface $comment): void
     {
         $this->children[$comment->getId()] = new self($comment);
     }
@@ -57,7 +57,7 @@ class Tree
      *
      * @return Tree
      */
-    public function traverse($id)
+    public function traverse(mixed $id): Tree
     {
         return $this->children[$id];
     }
@@ -83,7 +83,7 @@ class Tree
      *                ...
      *                )
      */
-    public function toArray()
+    public function toArray(): array
     {
         $children = [];
         foreach ($this->children as $child) {

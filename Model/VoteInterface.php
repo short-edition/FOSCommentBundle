@@ -21,18 +21,18 @@ use Symfony\Component\Validator\ExecutionContextInterface as LegacyExecutionCont
  */
 interface VoteInterface
 {
-    const VOTE_UP = 1;
-    const VOTE_DOWN = -1;
+    const int VOTE_UP = 1;
+    const int VOTE_DOWN = -1;
 
     /**
      * @return mixed unique ID for this vote
      */
-    public function getId();
+    public function getId(): mixed;
 
     /**
      * @return SignedCommentInterface
      */
-    public function getComment();
+    public function getComment(): ?VotableCommentInterface;
 
     /**
      * @param VotableCommentInterface $comment
@@ -42,15 +42,15 @@ interface VoteInterface
     /**
      * @return int the modification applied to the comment by this vote
      */
-    public function getValue();
+    public function getValue(): int;
 
     /**
      * @return \DateTime
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): \DateTime;
 
     /**
      * @param LegacyExecutionContextInterface|ExecutionContextInterface $context
      */
-    public function isVoteValid($context);
+    public function isVoteValid(ExecutionContextInterface $context);
 }

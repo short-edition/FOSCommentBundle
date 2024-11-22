@@ -24,24 +24,24 @@ abstract class Vote implements VoteInterface
     /**
      * @var mixed
      */
-    protected $id;
+    protected mixed $id;
 
     /**
      * @var VotableCommentInterface
      */
-    protected $comment;
+    protected ?VotableCommentInterface $comment;
 
     /**
      * @var DateTime
      */
-    protected $createdAt;
+    protected DateTime $createdAt;
 
     /**
      * The value of the vote.
      *
      * @var int
      */
-    protected $value;
+    protected int $value;
 
     /**
      * @param VotableCommentInterface $comment
@@ -65,7 +65,7 @@ abstract class Vote implements VoteInterface
      *
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->id;
     }
@@ -73,7 +73,7 @@ abstract class Vote implements VoteInterface
     /**
      * @return DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
@@ -81,7 +81,7 @@ abstract class Vote implements VoteInterface
     /**
      * @return int The votes value
      */
-    public function getValue()
+    public function getValue(): int
     {
         return $this->value;
     }
@@ -89,7 +89,7 @@ abstract class Vote implements VoteInterface
     /**
      * @param int $value
      */
-    public function setValue($value)
+    public function setValue(int $value): void
     {
         $this->value = intval($value);
     }
@@ -97,7 +97,7 @@ abstract class Vote implements VoteInterface
     /**
      * {@inheritdoc}
      */
-    public function isVoteValid($context)
+    public function isVoteValid($context): void
     {
         if ($context instanceof ExecutionContextInterface) {
             if (!$this->checkValue($this->value)) {
@@ -122,7 +122,7 @@ abstract class Vote implements VoteInterface
      *
      * @return VotableCommentInterface
      */
-    public function getComment()
+    public function getComment(): ?VotableCommentInterface
     {
         return $this->comment;
     }
@@ -134,7 +134,7 @@ abstract class Vote implements VoteInterface
      *
      * @return void
      */
-    public function setComment(VotableCommentInterface $comment)
+    public function setComment(VotableCommentInterface $comment): void
     {
         $this->comment = $comment;
     }
@@ -146,7 +146,7 @@ abstract class Vote implements VoteInterface
      *
      * @return bool True, if the integer representation of the value is not null or 0
      */
-    protected function checkValue($value)
+    protected function checkValue(mixed $value): bool
     {
         return null !== $value && intval($value);
     }

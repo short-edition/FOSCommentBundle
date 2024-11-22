@@ -44,7 +44,7 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null): CommentInterface
     {
         $class = $this->getClass();
         $comment = new $class();
@@ -64,7 +64,7 @@ abstract class CommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null): array
+    public function findCommentTreeByThread(ThreadInterface $thread, ?string $sorter = null, ?int $depth = null): array
     {
         $comments = $this->findCommentsByThread($thread, $depth);
         $sorter = $this->sortingFactory->getSorter($sorter);
@@ -108,7 +108,7 @@ abstract class CommentManager implements CommentManagerInterface
      *
      * @return array A tree of comments
      */
-    protected function organiseComments($comments, SortingInterface $sorter, $ignoreParents = null): array
+    protected function organiseComments(array $comments, SortingInterface $sorter, ?array $ignoreParents = null): array
     {
         $tree = new Tree();
 

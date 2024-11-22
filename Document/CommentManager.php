@@ -28,17 +28,17 @@ class CommentManager extends BaseCommentManager
     /**
      * @var DocumentManager
      */
-    protected $dm;
+    protected DocumentManager $dm;
 
     /**
      * @var DocumentRepository
      */
-    protected $repository;
+    protected DocumentRepository $repository;
 
     /**
      * @var string
      */
-    protected $class;
+    protected string $class;
 
     /**
      * Constructor.
@@ -48,7 +48,7 @@ class CommentManager extends BaseCommentManager
      * @param DocumentManager          $dm
      * @param string                   $class
      */
-    public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, DocumentManager $dm, string $class)
     {
         parent::__construct($dispatcher, $factory);
 
@@ -62,7 +62,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
+    public function findCommentsByThread(ThreadInterface $thread, ?int $depth = null, ?string $sorterAlias = null): array
     {
         $qb = $this->repository
             ->createQueryBuilder()
@@ -91,7 +91,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByCommentId($commentId, $sorter = null)
+    public function findCommentTreeByCommentId($commentId, ?string $sorter = null): array
     {
         $qb = $this->repository
             ->createQueryBuilder()
@@ -115,7 +115,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function findCommentById($id)
+    public function findCommentById($id): ?CommentInterface
     {
         return $this->repository->find($id);
     }
@@ -123,7 +123,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function isNewComment(CommentInterface $comment)
+    public function isNewComment(CommentInterface $comment): bool
     {
         return !$this->dm->getUnitOfWork()->isInIdentityMap($comment);
     }
@@ -131,7 +131,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->class;
     }
@@ -139,7 +139,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    protected function doSaveComment(CommentInterface $comment)
+    protected function doSaveComment(CommentInterface $comment): void
     {
         $this->dm->persist($comment->getThread());
         $this->dm->persist($comment);

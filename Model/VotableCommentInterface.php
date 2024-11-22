@@ -23,14 +23,14 @@ interface VotableCommentInterface extends CommentInterface
      *
      * @param int $score
      */
-    public function setScore($score);
+    public function setScore(int $score);
 
     /**
      * Returns the current score of the comment.
      *
      * @return int
      */
-    public function getScore();
+    public function getScore(): int;
 
     /**
      * Increments the comment score by the provided
@@ -40,5 +40,5 @@ interface VotableCommentInterface extends CommentInterface
      *
      * @return int The new comment score
      */
-    public function incrementScore($by = 1);
+    public function incrementScore(int $by = 1): void;
 }

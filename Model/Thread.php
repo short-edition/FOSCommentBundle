@@ -26,35 +26,35 @@ abstract class Thread implements ThreadInterface
      *
      * @var string
      */
-    protected $id;
+    protected string $id;
 
     /**
      * Tells if new comments can be added in this thread.
      *
      * @var bool
      */
-    protected $isCommentable = true;
+    protected bool $isCommentable = true;
 
     /**
      * Denormalized number of comments.
      *
      * @var int
      */
-    protected $numComments = 0;
+    protected int $numComments = 0;
 
     /**
      * Denormalized date of the last comment.
      *
      * @var DateTime
      */
-    protected $lastCommentAt = null;
+    protected ?DateTime $lastCommentAt = null;
 
     /**
      * Url of the page where the thread lives.
      *
      * @var string
      */
-    protected $permalink;
+    protected string $permalink;
 
     /**
      * @return string
@@ -67,7 +67,7 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -77,7 +77,7 @@ abstract class Thread implements ThreadInterface
      *
      * @return null
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -85,17 +85,12 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
-    public function getPermalink()
+    public function getPermalink(): string
     {
         return $this->permalink;
     }
 
-    /**
-     * @param  string
-     *
-     * @return null
-     */
-    public function setPermalink($permalink)
+    public function setPermalink(string $permalink): void
     {
         $this->permalink = $permalink;
     }
@@ -103,17 +98,12 @@ abstract class Thread implements ThreadInterface
     /**
      * @return bool
      */
-    public function isCommentable()
+    public function isCommentable(): bool
     {
         return $this->isCommentable;
     }
 
-    /**
-     * @param  bool
-     *
-     * @return null
-     */
-    public function setCommentable($isCommentable)
+    public function setCommentable($isCommentable): void
     {
         $this->isCommentable = (bool) $isCommentable;
     }
@@ -123,7 +113,7 @@ abstract class Thread implements ThreadInterface
      *
      * @return int
      */
-    public function getNumComments()
+    public function getNumComments(): int
     {
         return $this->numComments;
     }
@@ -133,7 +123,7 @@ abstract class Thread implements ThreadInterface
      *
      * @param int $numComments
      */
-    public function setNumComments($numComments)
+    public function setNumComments(int $numComments): void
     {
         $this->numComments = intval($numComments);
     }
@@ -146,7 +136,7 @@ abstract class Thread implements ThreadInterface
      *
      * @return int The new comment total
      */
-    public function incrementNumComments($by = 1)
+    public function incrementNumComments(int $by = 1): int
     {
         return $this->numComments += intval($by);
     }
@@ -154,17 +144,15 @@ abstract class Thread implements ThreadInterface
     /**
      * @return DateTime
      */
-    public function getLastCommentAt()
+    public function getLastCommentAt(): ?DateTime
     {
         return $this->lastCommentAt;
     }
 
     /**
      * @param  DateTime
-     *
-     * @return null
      */
-    public function setLastCommentAt($lastCommentAt)
+    public function setLastCommentAt($lastCommentAt): void
     {
         $this->lastCommentAt = $lastCommentAt;
     }

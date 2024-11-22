@@ -32,7 +32,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected mixed $id;
 
     /**
      * Thread of this comment.
@@ -41,26 +41,26 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @var Thread
      */
-    protected $thread;
+    protected ThreadInterface $thread;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    protected $author;
+    protected string $author;
 
     /**
      * @ORM\Column(type="integer")
      *
      * @var int
      */
-    protected $score = 0;
+    protected int $score = 0;
 
     /**
      * @return Thread
      */
-    public function getThread()
+    public function getThread(): ThreadInterface
     {
         return $this->thread;
     }
@@ -70,7 +70,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @return null
      */
-    public function setThread(ThreadInterface $thread)
+    public function setThread(ThreadInterface $thread): void
     {
         $this->thread = $thread;
     }
@@ -80,7 +80,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @param string $user
      */
-    public function setAuthor(UserInterface $author)
+    public function setAuthor(UserInterface $author): void
     {
         $this->author = $author->getUsername();
     }
@@ -90,7 +90,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @return string
      */
-    public function getAuthor()
+    public function getAuthor(): UserInterface
     {
         return $this->author;
     }
@@ -100,7 +100,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @param int $score
      */
-    public function setScore($score)
+    public function setScore($score): void
     {
         $this->score = $score;
     }
@@ -110,7 +110,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @return int
      */
-    public function getScore()
+    public function getScore(): int
     {
         return $this->score;
     }
@@ -123,12 +123,12 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @return int The new comment score
      */
-    public function incrementScore($by = 1)
+    public function incrementScore($by = 1): void
     {
         $this->score += $by;
     }
 
-    public function getAuthorName()
+    public function getAuthorName(): string
     {
         return $this->author ?: parent::getAuthorName();
     }

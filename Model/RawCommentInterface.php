@@ -24,12 +24,12 @@ interface RawCommentInterface extends CommentInterface
      *
      * @return string
      */
-    public function getRawBody();
+    public function getRawBody(): string;
 
     /**
      * Sets the processed body with raw html.
      *
      * @param string $rawBody
      */
-    public function setRawBody($rawBody);
+    public function setRawBody(string $rawBody);
 }

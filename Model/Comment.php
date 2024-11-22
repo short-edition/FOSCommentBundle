@@ -26,54 +26,54 @@ abstract class Comment implements CommentInterface
      *
      * @var mixed
      */
-    protected $id;
+    protected mixed $id;
 
     /**
      * Parent comment id.
      *
      * @var CommentInterface
      */
-    protected $parent;
+    protected CommentInterface $parent;
 
     /**
      * Comment text.
      *
      * @var string
      */
-    protected $body;
+    protected string $body;
 
     /**
      * The depth of the comment.
      *
      * @var int
      */
-    protected $depth = 0;
+    protected int $depth = 0;
 
     /**
      * @var DateTime
      */
-    protected $createdAt;
+    protected DateTime $createdAt;
 
     /**
      * Current state of the comment.
      *
      * @var int
      */
-    protected $state = 0;
+    protected int $state = 0;
 
     /**
      * The previous state of the comment.
      *
      * @var int
      */
-    protected $previousState = 0;
+    protected int $previousState = 0;
 
     /**
      * Should be mapped by the end developer.
      *
      * @var ThreadInterface
      */
-    protected $thread;
+    protected ThreadInterface $thread;
 
     public function __construct()
     {
@@ -93,7 +93,7 @@ abstract class Comment implements CommentInterface
      *
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->id;
     }
@@ -101,17 +101,17 @@ abstract class Comment implements CommentInterface
     /**
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
     /**
-     * @param  string
+     * @param string
      *
-     * @return null
+     * @return void
      */
-    public function setBody($body)
+    public function setBody(string $body): void
     {
         $this->body = $body;
     }
@@ -119,7 +119,7 @@ abstract class Comment implements CommentInterface
     /**
      * @return string name of the comment author
      */
-    public function getAuthorName()
+    public function getAuthorName(): string
     {
         return 'Anonymous';
     }
@@ -127,7 +127,7 @@ abstract class Comment implements CommentInterface
     /**
      * @return DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
@@ -137,7 +137,7 @@ abstract class Comment implements CommentInterface
      *
      * @param DateTime $createdAt
      */
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -147,7 +147,7 @@ abstract class Comment implements CommentInterface
      *
      * @return int
      */
-    public function getDepth()
+    public function getDepth(): int
     {
         return $this->depth;
     }
@@ -155,7 +155,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): CommentInterface
     {
         return $this->parent;
     }
@@ -163,7 +163,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function setParent(CommentInterface $parent)
+    public function setParent(CommentInterface $parent): void
     {
         $this->parent = $parent;
 
@@ -180,7 +180,7 @@ abstract class Comment implements CommentInterface
     /**
      * @return ThreadInterface
      */
-    public function getThread()
+    public function getThread(): ThreadInterface
     {
         return $this->thread;
     }
@@ -190,7 +190,7 @@ abstract class Comment implements CommentInterface
      *
      * @return void
      */
-    public function setThread(ThreadInterface $thread)
+    public function setThread(ThreadInterface $thread): void
     {
         $this->thread = $thread;
     }
@@ -198,7 +198,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function getState()
+    public function getState(): int
     {
         return $this->state;
     }
@@ -206,7 +206,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function setState($state)
+    public function setState($state): void
     {
         $this->previousState = $this->state;
         $this->state = $state;
@@ -215,7 +215,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function getPreviousState()
+    public function getPreviousState(): int
     {
         return $this->previousState;
     }

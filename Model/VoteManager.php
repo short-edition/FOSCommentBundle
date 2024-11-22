@@ -40,7 +40,7 @@ abstract class VoteManager implements VoteManagerInterface
      *
      * @param  $id
      */
-    public function findVoteById($id): VoteInterface
+    public function findVoteById(string $id): VoteInterface
     {
         return $this->findVoteBy(['id' => $id]);
     }

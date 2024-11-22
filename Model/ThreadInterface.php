@@ -26,52 +26,52 @@ interface ThreadInterface
      *
      * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * @param string
      */
-    public function setId($id);
+    public function setId(string $id);
 
     /**
      * Url of the page where the thread lives.
      *
      * @return string
      */
-    public function getPermalink();
+    public function getPermalink(): string;
 
     /**
      * @param  string
      *
      * @return null
      */
-    public function setPermalink($permalink);
+    public function setPermalink(string $permalink): void;
 
     /**
      * Tells if new comments can be added in this thread.
      *
      * @return bool
      */
-    public function isCommentable();
+    public function isCommentable(): bool;
 
     /**
      * @param bool $isCommentable
      */
-    public function setCommentable($isCommentable);
+    public function setCommentable(bool $isCommentable);
 
     /**
      * Gets the number of comments.
      *
      * @return int
      */
-    public function getNumComments();
+    public function getNumComments(): int;
 
     /**
      * Sets the number of comments.
      *
      * @param int $numComments
      */
-    public function setNumComments($numComments);
+    public function setNumComments(int $numComments);
 
     /**
      * Increments the number of comments by the supplied
@@ -81,19 +81,19 @@ interface ThreadInterface
      *
      * @return int The new comment total
      */
-    public function incrementNumComments($by);
+    public function incrementNumComments(int $by): int;
 
     /**
      * Denormalized date of the last comment.
      *
      * @return DateTime
      */
-    public function getLastCommentAt();
+    public function getLastCommentAt(): ?DateTime;
 
     /**
      * @param  DateTime
      *
      * @return null
      */
-    public function setLastCommentAt($lastCommentAt);
+    public function setLastCommentAt(DateTime $lastCommentAt): void;
 }

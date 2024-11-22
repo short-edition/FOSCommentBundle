@@ -32,5 +32,5 @@ interface SignedVoteInterface extends VoteInterface
      *
      * @return UserInterface
      */
-    public function getVoter();
+    public function getVoter(): UserInterface;
 }

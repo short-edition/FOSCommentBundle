@@ -29,13 +29,13 @@ class Vote extends BaseVote implements SignedVoteInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected mixed $id;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $voter;
+    protected UserInterface $voter;
 
     /**
      * Sets the owner of the vote.
@@ -52,7 +52,7 @@ class Vote extends BaseVote implements SignedVoteInterface
      *
      * @return UserInterface
      */
-    public function getVoter()
+    public function getVoter(): UserInterface
     {
         return $this->voter;
     }

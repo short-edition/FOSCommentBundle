@@ -26,7 +26,7 @@ interface ThreadManagerInterface
      *
      * @return ThreadInterface
      */
-    public function findThreadById(string $id): ThreadInterface;
+    public function findThreadById(string $id): ?ThreadInterface;
 
     /**
      * Finds one comment thread by the given criteria.
@@ -35,7 +35,7 @@ interface ThreadManagerInterface
      *
      * @return ThreadInterface
      */
-    public function findThreadBy(array $criteria): ThreadInterface;
+    public function findThreadBy(array $criteria): ?ThreadInterface;
 
     /**
      * Finds threads by the given criteria.
