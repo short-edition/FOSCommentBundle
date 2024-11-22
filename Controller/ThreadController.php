@@ -598,7 +598,7 @@ class ThreadController extends AbstractFOSRestController
      *
      * @return View
      */
-    protected function onCreateCommentSuccess(FormInterface $form, string $id, CommentInterface $parent = null): View|Response
+    protected function onCreateCommentSuccess(FormInterface $form, string $id, ?CommentInterface $parent = null): View|Response
     {
         return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->getId()], Response::HTTP_CREATED);
     }
@@ -612,7 +612,7 @@ class ThreadController extends AbstractFOSRestController
      *
      * @return View
      */
-    protected function onCreateCommentError(FormInterface $form, string $id, CommentInterface $parent = null): View|Response
+    protected function onCreateCommentError(FormInterface $form, string $id, ?CommentInterface $parent = null): View|Response
     {
         $view = View::create()
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
