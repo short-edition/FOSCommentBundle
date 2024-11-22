@@ -57,7 +57,7 @@ interface ThreadInterface
     /**
      * @param bool $isCommentable
      */
-    public function setCommentable(bool $isCommentable);
+    public function setCommentable(bool $isCommentable): void;
 
     /**
      * Gets the number of comments.
@@ -71,7 +71,7 @@ interface ThreadInterface
      *
      * @param int $numComments
      */
-    public function setNumComments(int $numComments);
+    public function setNumComments(int $numComments): void;
 
     /**
      * Increments the number of comments by the supplied

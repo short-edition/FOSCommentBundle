@@ -80,7 +80,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @param string $user
      */
-    public function setAuthor(UserInterface $author): void
+    public function setAuthor($author): void
     {
         $this->author = $author->getUsername();
     }
