@@ -112,7 +112,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canReply(CommentInterface $parent = null): bool
+    public function canReply(?CommentInterface $parent = null): bool
     {
         if (null !== $parent) {
             return $this->canCreate() && $this->canView($parent);
