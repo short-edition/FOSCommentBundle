@@ -18,7 +18,7 @@ namespace FOS\CommentBundle\Markup;
  */
 class HtmlPurifier implements ParserInterface
 {
-    private $purifier;
+    private \HTMLPurifier $purifier;
 
     public function __construct(\HTMLPurifier $purifier)
     {
@@ -28,7 +28,7 @@ class HtmlPurifier implements ParserInterface
     /**
      * {@inheritdoc}
      */
-    public function parse($raw)
+    public function parse(string $raw): string
     {
         return $this->purifier->purify($raw);
     }

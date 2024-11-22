@@ -28,7 +28,7 @@ class CommentMarkupListener implements EventSubscriberInterface
     /**
      * @var ParserInterface
      */
-    protected $parser;
+    protected ParserInterface $parser;
 
     /**
      * Constructor.
@@ -46,7 +46,7 @@ class CommentMarkupListener implements EventSubscriberInterface
      *
      * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
-    public function markup(CommentEvent $event)
+    public function markup(CommentEvent $event): void
     {
         $comment = $event->getComment();
 
@@ -61,7 +61,7 @@ class CommentMarkupListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::COMMENT_PRE_PERSIST => 'markup'];
     }

@@ -28,5 +28,5 @@ interface SpamDetectionInterface
      *
      * @return bool
      */
-    public function isSpam(CommentInterface $comment);
+    public function isSpam(CommentInterface $comment): bool;
 }

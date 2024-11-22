@@ -36,7 +36,7 @@ class FOSCommentExtension extends Extension
      *
      * @return void
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -132,7 +132,7 @@ class FOSCommentExtension extends Extension
         $container->getAlias('fos_comment.manager.vote')->setPublic(true);
     }
 
-    protected function loadAcl(ContainerBuilder $container, array $config)
+    protected function loadAcl(ContainerBuilder $container, array $config): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('acl.xml');

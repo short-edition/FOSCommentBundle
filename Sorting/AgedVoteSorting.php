@@ -31,7 +31,7 @@ class AgedVoteSorting extends AbstractOrderSorting
      *
      * @return -1|0|1 As expected for uasort()
      */
-    protected function compare(CommentInterface $a, CommentInterface $b)
+    protected function compare(CommentInterface $a, CommentInterface $b): int
     {
         $aScore = $a->getScore() / ($a->getCreatedAt()->getTimestamp() / 60 / 60 / 24);
         $bScore = $b->getScore() / ($b->getCreatedAt()->getTimestamp() / 60 / 60 / 24);

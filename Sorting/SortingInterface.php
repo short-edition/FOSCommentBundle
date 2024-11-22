@@ -25,9 +25,9 @@ interface SortingInterface
      *
      * @param array $tree
      *
-     * @return Tree
+     * @return array
      */
-    public function sort(array $tree);
+    public function sort(array $tree): array;
 
     /**
      * Sorts a flat comment array.
@@ -36,5 +36,5 @@ interface SortingInterface
      *
      * @return array
      */
-    public function sortFlat(array $comments);
+    public function sortFlat(array $comments): array;
 }

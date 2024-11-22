@@ -22,12 +22,12 @@ class VotePersistEvent extends VoteEvent
     /**
      * @var bool
      */
-    private $abortPersistence = false;
+    private bool $abortPersistence = false;
 
     /**
      * Indicates that the persisting operation should not proceed.
      */
-    public function abortPersistence()
+    public function abortPersistence(): void
     {
         $this->abortPersistence = true;
     }
@@ -38,7 +38,7 @@ class VotePersistEvent extends VoteEvent
      *
      * @return bool
      */
-    public function isPersistenceAborted()
+    public function isPersistenceAborted(): bool
     {
         return $this->abortPersistence;
     }

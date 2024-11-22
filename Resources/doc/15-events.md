@@ -59,7 +59,7 @@ class MailNotificationListener implements EventSubscriberInterface
     /**
      * {@inheritDoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             Events::COMMENT_POST_PERSIST => 'onCommentPostPersistTest',

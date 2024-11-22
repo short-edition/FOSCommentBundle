@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class CommentVoteScoreListener implements EventSubscriberInterface
 {
-    public function onVotePersist(VoteEvent $event)
+    public function onVotePersist(VoteEvent $event): void
     {
         $vote = $event->getVote();
         $comment = $vote->getComment();
@@ -33,7 +33,7 @@ class CommentVoteScoreListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::VOTE_PRE_PERSIST => 'onVotePersist'];
     }

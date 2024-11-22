@@ -78,7 +78,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null)
+    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null): array
     {
         $comments = $this->realManager->findCommentsByThread($thread, $depth, $sorterAlias);
 
@@ -94,7 +94,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByCommentId($commentId, $sorter = null)
+    public function findCommentTreeByCommentId($commentId, $sorter = null): array
     {
         $comments = $this->realManager->findCommentTreeByCommentId($commentId, $sorter);
 
@@ -142,7 +142,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      **/
-    public function findCommentById($id)
+    public function findCommentById($id): ?CommentInterface
     {
         $comment = $this->realManager->findCommentById($id);
 
@@ -156,7 +156,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createComment(ThreadInterface $thread, CommentInterface $parent = null)
+    public function createComment(ThreadInterface $thread, CommentInterface $parent = null): CommentInterface
     {
         return $this->realManager->createComment($thread, $parent);
     }
@@ -164,7 +164,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function isNewComment(CommentInterface $comment)
+    public function isNewComment(CommentInterface $comment): bool
     {
         return $this->realManager->isNewComment($comment);
     }
@@ -172,7 +172,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->realManager->getClass();
     }
@@ -185,7 +185,7 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @return bool
      */
-    protected function authorizeViewCommentTree(array $comments)
+    protected function authorizeViewCommentTree(array $comments): bool
     {
         foreach ($comments as $comment) {
             if (!$this->commentAcl->canView($comment['comment'])) {

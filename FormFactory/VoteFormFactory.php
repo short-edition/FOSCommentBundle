@@ -25,17 +25,17 @@ final class VoteFormFactory implements VoteFormFactoryInterface
     /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @param FormFactoryInterface $formFactory

@@ -19,14 +19,14 @@ namespace FOS\CommentBundle\Markup;
 class PipelineParser implements ParserInterface
 {
     /** @var ParserInterface[] */
-    private $pipeline = [];
+    private array $pipeline = [];
 
     /**
      * Adds a parser to pipeline.
      *
      * @param ParserInterface $parser
      */
-    public function addToPipeline(ParserInterface $parser)
+    public function addToPipeline(ParserInterface $parser): void
     {
         $this->pipeline[] = $parser;
     }
@@ -38,7 +38,7 @@ class PipelineParser implements ParserInterface
      *
      * @return string comment that has been parsed with all parsers in pipeline
      */
-    public function parse($raw)
+    public function parse(string $raw): string
     {
         foreach ($this->pipeline as $parser) {
             $raw = $parser->parse($raw);

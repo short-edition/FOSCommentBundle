@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentableThreadType extends AbstractType
 {
-    private $threadClass;
+    private string $threadClass;
 
     public function __construct(string $threadClass)
     {
@@ -27,11 +27,8 @@ class CommentableThreadType extends AbstractType
 
     /**
      * Configures a form to close a thread.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('isCommentable', HiddenType::class, [
             'property_path' => 'commentable',
@@ -41,7 +38,7 @@ class CommentableThreadType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->threadClass,
@@ -51,7 +48,7 @@ class CommentableThreadType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fos_comment_commentable_thread';
     }

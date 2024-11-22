@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentType extends AbstractType
 {
-    private $commentClass;
+    private string $commentClass;
 
     public function __construct(string $commentClass)
     {
@@ -27,11 +27,8 @@ class CommentType extends AbstractType
 
     /**
      * Configures a Comment form.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('body', TextareaType::class);
     }
@@ -39,7 +36,7 @@ class CommentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->commentClass,
@@ -49,7 +46,7 @@ class CommentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fos_comment_comment';
     }

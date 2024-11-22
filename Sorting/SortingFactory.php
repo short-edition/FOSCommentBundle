@@ -24,18 +24,18 @@ class SortingFactory
     /**
      * @var array of SortingInterface
      */
-    private $sorters;
+    private array $sorters;
 
     /**
      * @var string Default SortingInterface alias
      */
-    private $defaultSorter;
+    private string $defaultSorter;
 
     /**
      * @param array  $sorters       An array of SortingInterfaces
      * @param string $defaultSorter The alias of the sorter to use by default
      */
-    public function __construct(array $sorters, $defaultSorter)
+    public function __construct(array $sorters, string $defaultSorter)
     {
         foreach ($sorters as $alias => $sorter) {
             if (!$sorter instanceof SortingInterface) {
@@ -64,7 +64,7 @@ class SortingFactory
     /**
      * @return array
      */
-    public function getAvailableSorters()
+    public function getAvailableSorters(): array
     {
         return array_keys($this->sorters);
     }

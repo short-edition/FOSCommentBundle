@@ -28,33 +28,31 @@ class CommentSpamListener implements EventSubscriberInterface
     /**
      * @var SpamDetectionInterface
      */
-    protected $spamDetector;
+    protected SpamDetectionInterface $spamDetector;
 
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    protected ?LoggerInterface $logger;
 
     /**
      * Constructor.
      *
      * @param SpamDetectionInterface $detector
-     * @param LoggerInterface        $logger
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(SpamDetectionInterface $detector, LoggerInterface $logger = null)
+    public function __construct(SpamDetectionInterface $detector, ?LoggerInterface $logger = null)
     {
         $this->spamDetector = $detector;
         $this->logger = $logger;
     }
 
-    public function spamCheck(CommentPersistEvent $event)
+    public function spamCheck(CommentPersistEvent $event): void
     {
         $comment = $event->getComment();
 
         if ($this->spamDetector->isSpam($comment)) {
-            if (null !== $this->logger) {
-                $this->logger->info('Comment is marked as spam from detector, aborting persistence.');
-            }
+            $this->logger?->info('Comment is marked as spam from detector, aborting persistence.');
 
             $event->abortPersistence();
         }
@@ -63,7 +61,7 @@ class CommentSpamListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::COMMENT_PRE_PERSIST => 'spamCheck'];
     }

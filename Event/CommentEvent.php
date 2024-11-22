@@ -20,7 +20,7 @@ use FOS\CommentBundle\Model\CommentInterface;
  */
 class CommentEvent extends Event
 {
-    private $comment;
+    private CommentInterface $comment;
 
     /**
      * Constructs an event.
@@ -37,7 +37,7 @@ class CommentEvent extends Event
      *
      * @return \FOS\CommentBundle\Model\CommentInterface
      */
-    public function getComment()
+    public function getComment(): CommentInterface
     {
         return $this->comment;
     }

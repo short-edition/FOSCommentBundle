@@ -28,7 +28,7 @@ class ClosedThreadListener implements EventSubscriberInterface
      *
      * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
-    public function onCommentPersist(CommentEvent $event)
+    public function onCommentPersist(CommentEvent $event): void
     {
         $comment = $event->getComment();
         $thread = $comment->getThread();
@@ -41,7 +41,7 @@ class ClosedThreadListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::COMMENT_PRE_PERSIST => 'onCommentPersist'];
     }

@@ -20,7 +20,7 @@ use FOS\CommentBundle\Model\ThreadInterface;
  */
 class ThreadEvent extends Event
 {
-    private $thread;
+    private ThreadInterface $thread;
 
     /**
      * Constructs an event.
@@ -37,7 +37,7 @@ class ThreadEvent extends Event
      *
      * @return \FOS\CommentBundle\Model\ThreadInterface
      */
-    public function getThread()
+    public function getThread(): ThreadInterface
     {
         return $this->thread;
     }

@@ -26,7 +26,7 @@ class ThreadPermalinkListener implements EventSubscriberInterface
     /**
      * @var RequestStack
      */
-    protected $requestStack;
+    protected RequestStack $requestStack;
 
     /**
      * @param RequestStack $requestStack
@@ -41,7 +41,7 @@ class ThreadPermalinkListener implements EventSubscriberInterface
      *
      * @param \FOS\CommentBundle\Event\ThreadEvent $event
      */
-    public function onThreadCreate(ThreadEvent $event)
+    public function onThreadCreate(ThreadEvent $event): void
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -56,7 +56,7 @@ class ThreadPermalinkListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::THREAD_CREATE => 'onThreadCreate'];
     }

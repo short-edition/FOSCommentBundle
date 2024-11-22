@@ -29,25 +29,25 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    protected ?LoggerInterface $logger;
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * Constructor.
      *
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface         $tokenStorage
-     * @param LoggerInterface               $logger
+     * @param TokenStorageInterface $tokenStorage
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, LoggerInterface $logger = null)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, ?LoggerInterface $logger = null)
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
@@ -59,22 +59,18 @@ class VoteBlamerListener implements EventSubscriberInterface
      *
      * @param VoteEvent $event
      */
-    public function blame(VoteEvent $event)
+    public function blame(VoteEvent $event): void
     {
         $vote = $event->getVote();
 
         if (!$vote instanceof SignedVoteInterface) {
-            if ($this->logger) {
-                $this->logger->debug('Vote does not implement SignedVoteInterface, skipping');
-            }
+            $this->logger?->debug('Vote does not implement SignedVoteInterface, skipping');
 
             return;
         }
 
         if (null === $this->tokenStorage->getToken()) {
-            if ($this->logger) {
-                $this->logger->debug('There is no firewall configured. We cant get a user.');
-            }
+            $this->logger?->debug('There is no firewall configured. We cant get a user.');
 
             return;
         }
@@ -87,7 +83,7 @@ class VoteBlamerListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::VOTE_PRE_PERSIST => 'blame'];
     }

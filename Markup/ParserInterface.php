@@ -26,5 +26,5 @@ interface ParserInterface
      *
      * @return string
      */
-    public function parse($raw);
+    public function parse(string $raw): string;
 }

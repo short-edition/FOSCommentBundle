@@ -29,11 +29,11 @@ use Twig\TwigTest;
  */
 final class CommentExtension extends AbstractExtension
 {
-    private $commentAcl;
-    private $voteAcl;
-    private $threadAcl;
+    private ?CommentAclInterface $commentAcl;
+    private ?VoteAclInterface $voteAcl;
+    private ?ThreadAclInterface $threadAcl;
 
-    public function __construct(CommentAclInterface $commentAcl = null, VoteAclInterface $voteAcl = null, ThreadAclInterface $threadAcl = null)
+    public function __construct(?CommentAclInterface $commentAcl = null, ?VoteAclInterface $voteAcl = null, ?ThreadAclInterface $threadAcl = null)
     {
         $this->commentAcl = $commentAcl;
         $this->voteAcl = $voteAcl;
@@ -43,7 +43,7 @@ final class CommentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('fos_comment_in_state', [$this, 'isCommentInState']),
@@ -60,7 +60,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function isCommentInState(CommentInterface $comment, $state)
+    public function isCommentInState(CommentInterface $comment, int $state): bool
     {
         return $comment->getState() === $state;
     }
@@ -72,12 +72,12 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool If $value implements VotableCommentInterface
      */
-    public function isVotable($value)
+    public function isVotable($value): bool
     {
         return $value instanceof VotableCommentInterface;
     }
 
-    public function isRawComment($comment)
+    public function isRawComment($comment): bool
     {
         return $comment instanceof RawCommentInterface;
     }
@@ -85,7 +85,7 @@ final class CommentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('fos_comment_can_comment', [$this, 'canComment']),
@@ -105,7 +105,7 @@ final class CommentExtension extends AbstractExtension
      * @param  CommentInterface|null $comment
      * @return bool                  If the user is able to comment
      */
-    public function canComment(CommentInterface $comment = null)
+    public function canComment(CommentInterface $comment = null): bool
     {
         if (null !== $comment
             && null !== $comment->getThread()
@@ -131,7 +131,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function canDeleteComment(CommentInterface $comment)
+    public function canDeleteComment(CommentInterface $comment): bool
     {
         if (null === $this->commentAcl) {
             return false;
@@ -147,7 +147,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool If the user is able to comment
      */
-    public function canEditComment(CommentInterface $comment)
+    public function canEditComment(CommentInterface $comment): bool
     {
         if (!$comment->getThread()->isCommentable()) {
             return false;
@@ -168,7 +168,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function canVote(CommentInterface $comment)
+    public function canVote(CommentInterface $comment): bool
     {
         if (!$comment instanceof VotableCommentInterface) {
             return false;
@@ -194,7 +194,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function canEditThread(ThreadInterface $thread)
+    public function canEditThread(ThreadInterface $thread): bool
     {
         if (null === $this->threadAcl) {
             return false;
@@ -210,7 +210,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return bool
      */
-    public function canCommentThread(ThreadInterface $thread)
+    public function canCommentThread(ThreadInterface $thread): bool
     {
         return $thread->isCommentable()
             && (null === $this->commentAcl || $this->commentAcl->canCreate());
@@ -221,7 +221,7 @@ final class CommentExtension extends AbstractExtension
      *
      * @return string The extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'fos_comment';
     }

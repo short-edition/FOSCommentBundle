@@ -29,25 +29,25 @@ class CommentBlamerListener implements EventSubscriberInterface
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    protected ?LoggerInterface $logger;
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * Constructor.
      *
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface         $tokenStorage
-     * @param LoggerInterface               $logger
+     * @param TokenStorageInterface $tokenStorage
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, LoggerInterface $logger = null)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage, ?LoggerInterface $logger = null)
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
@@ -59,22 +59,18 @@ class CommentBlamerListener implements EventSubscriberInterface
      *
      * @param \FOS\CommentBundle\Event\CommentEvent $event
      */
-    public function blame(CommentEvent $event)
+    public function blame(CommentEvent $event): void
     {
         $comment = $event->getComment();
 
         if (!$comment instanceof SignedCommentInterface) {
-            if ($this->logger) {
-                $this->logger->debug('Comment does not implement SignedCommentInterface, skipping');
-            }
+            $this->logger?->debug('Comment does not implement SignedCommentInterface, skipping');
 
             return;
         }
 
         if (null === $this->tokenStorage->getToken()) {
-            if ($this->logger) {
-                $this->logger->debug('There is no firewall configured. We cant get a user.');
-            }
+            $this->logger?->debug('There is no firewall configured. We cant get a user.');
 
             return;
         }
@@ -87,7 +83,7 @@ class CommentBlamerListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [Events::COMMENT_PRE_PERSIST => 'blame'];
     }

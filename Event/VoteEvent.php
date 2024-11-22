@@ -20,7 +20,7 @@ use FOS\CommentBundle\Model\VoteInterface;
  */
 class VoteEvent extends Event
 {
-    private $vote;
+    private VoteInterface $vote;
 
     /**
      * Constructs an event.
@@ -37,7 +37,7 @@ class VoteEvent extends Event
      *
      * @return \FOS\CommentBundle\Model\VoteInterface
      */
-    public function getVote()
+    public function getVote(): VoteInterface
     {
         return $this->vote;
     }

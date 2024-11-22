@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DeleteCommentType extends AbstractType
 {
-    private $commentClass;
+    private string $commentClass;
 
     public function __construct(string $commentClass)
     {
@@ -27,11 +27,8 @@ class DeleteCommentType extends AbstractType
 
     /**
      * Configures a form to delete a comment.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('state', HiddenType::class);
     }
@@ -39,7 +36,7 @@ class DeleteCommentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->commentClass,
@@ -49,7 +46,7 @@ class DeleteCommentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fos_comment_delete_comment';
     }

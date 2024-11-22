@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VoteType extends AbstractType
 {
-    private $voteClass;
+    private string $voteClass;
 
     public function __construct(string $voteClass)
     {
@@ -27,11 +27,8 @@ class VoteType extends AbstractType
 
     /**
      * Configures a Comment form.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('value', TextareaType::class);
     }
@@ -39,7 +36,7 @@ class VoteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->voteClass,
@@ -49,7 +46,7 @@ class VoteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fos_comment_vote';
     }

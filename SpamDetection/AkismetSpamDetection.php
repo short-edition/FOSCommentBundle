@@ -24,7 +24,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
     /**
      * @var AkismetInterface
      */
-    protected $akismet;
+    protected AkismetInterface $akismet;
 
     /**
      * @param AkismetInterface $akismet
@@ -37,7 +37,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
     /**
      * {@inheritdoc}
      */
-    public function isSpam(CommentInterface $comment)
+    public function isSpam(CommentInterface $comment): bool
     {
         return $this->akismet->isSpam($this->getCommentData($comment));
     }
@@ -49,7 +49,7 @@ class AkismetSpamDetection implements SpamDetectionInterface
      *
      * @return array
      */
-    protected function getCommentData(CommentInterface $comment)
+    protected function getCommentData(CommentInterface $comment): array
     {
         $data = [
             'comment_type' => 'comment',

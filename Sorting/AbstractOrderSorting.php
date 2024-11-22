@@ -21,10 +21,10 @@ use InvalidArgumentException;
  */
 abstract class AbstractOrderSorting implements SortingInterface
 {
-    const ASC = 'ASC';
-    const DESC = 'DESC';
+    const string ASC = 'ASC';
+    const string DESC = 'DESC';
 
-    private $order;
+    private string $order;
 
     public function __construct($order)
     {
@@ -49,7 +49,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @return array
      */
-    public function sort(array $tree)
+    public function sort(array $tree): array
     {
         foreach ($tree as &$branch) {
             if (count($branch['children'])) {
@@ -70,7 +70,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @return -1|0|1 As expected for usort()
      */
-    public function doSort($a, $b)
+    public function doSort(array $a, array $b): int
     {
         if (self::ASC == $this->order) {
             return $this->compare($a['comment'], $b['comment']);
@@ -86,7 +86,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @return array
      */
-    public function sortFlat(array $comments)
+    public function sortFlat(array $comments): array
     {
         usort($comments, [$this, 'doFlatSort']);
 
@@ -101,7 +101,7 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @return -1|0|1 As expected for uasort()
      */
-    public function doFlatSort($a, $b)
+    public function doFlatSort(CommentInterface $a, CommentInterface $b): int
     {
         if (self::ASC == $this->order) {
             return $this->compare($a, $b);
@@ -118,5 +118,5 @@ abstract class AbstractOrderSorting implements SortingInterface
      *
      * @return -1|0|1 As expected for usort()
      */
-    abstract protected function compare(CommentInterface $a, CommentInterface $b);
+    abstract protected function compare(CommentInterface $a, CommentInterface $b): int;
 }

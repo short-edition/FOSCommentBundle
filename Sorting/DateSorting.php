@@ -28,7 +28,7 @@ class DateSorting extends AbstractOrderSorting
      *
      * @return -1|0|1 As expected for uasort()
      */
-    protected function compare(CommentInterface $a, CommentInterface $b)
+    protected function compare(CommentInterface $a, CommentInterface $b): int
     {
         if ($a->getCreatedAt() == $b->getCreatedAt()) {
             return 0;
