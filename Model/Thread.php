@@ -26,7 +26,7 @@ abstract class Thread implements ThreadInterface
      *
      * @var string
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * Tells if new comments can be added in this thread.

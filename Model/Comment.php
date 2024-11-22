@@ -26,7 +26,7 @@ abstract class Comment implements CommentInterface
      *
      * @var mixed
      */
-    protected int $id;
+    protected ?int $id = null;
 
     /**
      * Parent comment id.
