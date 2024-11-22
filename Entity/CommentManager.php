@@ -12,7 +12,7 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
 use FOS\CommentBundle\Model\ThreadInterface;
@@ -34,7 +34,7 @@ class CommentManager extends BaseCommentManager
     /**
      * @var EntityRepository
      */
-    protected EntityRepository $repository;
+    protected ServiceEntityRepository $repository;
 
     /**
      * @var string

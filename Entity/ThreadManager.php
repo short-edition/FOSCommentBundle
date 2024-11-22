@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use FOS\CommentBundle\Model\ThreadInterface;
 use FOS\CommentBundle\Model\ThreadManager as BaseThreadManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,7 +32,7 @@ class ThreadManager extends BaseThreadManager
     /**
      * @var EntityRepository
      */
-    protected EntityRepository $repository;
+    protected ServiceEntityRepository $repository;
 
     /**
      * @var string
