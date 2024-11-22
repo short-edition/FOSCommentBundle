@@ -35,7 +35,7 @@ interface ThreadManagerInterface
      *
      * @return ThreadInterface
      */
-    public function findThreadBy(array $criteria): ?ThreadInterface;
+    public function findThreadBy(array $criteria): ThreadInterface;
 
     /**
      * Finds threads by the given criteria.

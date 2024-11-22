@@ -63,7 +63,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @return ThreadInterface
      */
-    public function findThreadBy(array $criteria)
+    public function findThreadBy(array $criteria): ThreadInterface
     {
         return $this->repository->findOneBy($criteria);
     }
@@ -71,7 +71,7 @@ class ThreadManager extends BaseThreadManager
     /**
      * {@inheritdoc}
      */
-    public function findThreadsBy(array $criteria)
+    public function findThreadsBy(array $criteria): array
     {
         return $this->repository->findBy($criteria);
     }
@@ -81,7 +81,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @return array of ThreadInterface
      */
-    public function findAllThreads()
+    public function findAllThreads(): array
     {
         return $this->repository->findAll();
     }
@@ -89,7 +89,7 @@ class ThreadManager extends BaseThreadManager
     /**
      * {@inheritdoc}
      */
-    public function isNewThread(ThreadInterface $thread)
+    public function isNewThread(ThreadInterface $thread): bool
     {
         return !$this->em->getUnitOfWork()->isInIdentityMap($thread);
     }
@@ -99,7 +99,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @return string
      **/
-    public function getClass()
+    public function getClass(): string
     {
         return $this->class;
     }
