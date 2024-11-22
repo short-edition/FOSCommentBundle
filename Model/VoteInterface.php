@@ -32,12 +32,12 @@ interface VoteInterface
     /**
      * @return SignedCommentInterface
      */
-    public function getComment(): ?VotableCommentInterface;
+    public function getComment();
 
     /**
      * @param VotableCommentInterface $comment
      */
-    public function setComment(VotableCommentInterface $comment);
+    public function setComment($comment);
 
     /**
      * @return int the modification applied to the comment by this vote
@@ -52,5 +52,5 @@ interface VoteInterface
     /**
      * @param LegacyExecutionContextInterface|ExecutionContextInterface $context
      */
-    public function isVoteValid(ExecutionContextInterface $context);
+    public function isVoteValid($context);
 }

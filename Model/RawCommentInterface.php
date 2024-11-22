@@ -24,7 +24,7 @@ interface RawCommentInterface extends CommentInterface
      *
      * @return string
      */
-    public function getRawBody(): string;
+    public function getRawBody(): ?string;
 
     /**
      * Sets the processed body with raw html.

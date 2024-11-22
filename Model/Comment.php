@@ -73,7 +73,7 @@ abstract class Comment implements CommentInterface
      *
      * @var ThreadInterface
      */
-    protected Thread $thread;
+    protected $thread;
 
     public function __construct()
     {

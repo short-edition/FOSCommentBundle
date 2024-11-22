@@ -27,12 +27,12 @@ abstract class Comment extends AbstractComment
      *
      * @var string
      */
-    protected $ancestors = '';
+    protected string $ancestors = '';
 
     /**
      * @return array
      */
-    public function getAncestors()
+    public function getAncestors(): array
     {
         return $this->ancestors ? explode('/', $this->ancestors) : [];
     }
@@ -42,7 +42,7 @@ abstract class Comment extends AbstractComment
      *
      * @return null
      */
-    public function setAncestors(array $ancestors)
+    public function setAncestors(array $ancestors): void
     {
         $this->ancestors = implode('/', $ancestors);
         $this->depth = count($ancestors);

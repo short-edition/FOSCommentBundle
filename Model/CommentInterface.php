@@ -56,7 +56,7 @@ interface CommentInterface
     /**
      * @return ThreadInterface
      */
-    public function getThread(): Thread;
+    public function getThread();
 
     /**
      * @param ThreadInterface $thread
@@ -66,7 +66,7 @@ interface CommentInterface
     /**
      * @return CommentInterface
      */
-    public function getParent(): CommentInterface;
+    public function getParent();
 
     /**
      * @param CommentInterface $comment

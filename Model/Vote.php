@@ -46,7 +46,7 @@ abstract class Vote implements VoteInterface
     /**
      * @param VotableCommentInterface $comment
      */
-    public function __construct(VotableCommentInterface $comment = null)
+    public function __construct(?VotableCommentInterface $comment = null)
     {
         $this->comment = $comment;
         $this->createdAt = new DateTime();
@@ -122,7 +122,7 @@ abstract class Vote implements VoteInterface
      *
      * @return VotableCommentInterface
      */
-    public function getComment(): ?VotableCommentInterface
+    public function getComment()
     {
         return $this->comment;
     }
@@ -134,7 +134,7 @@ abstract class Vote implements VoteInterface
      *
      * @return void
      */
-    public function setComment(VotableCommentInterface $comment): void
+    public function setComment($comment): void
     {
         $this->comment = $comment;
     }
