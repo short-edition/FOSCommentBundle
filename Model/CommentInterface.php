@@ -31,7 +31,7 @@ interface CommentInterface
     /**
      * @return mixed unique ID for this comment
      */
-    public function getId(): int;
+    public function getId(): ?int;
 
     /**
      * @return string name of the comment author

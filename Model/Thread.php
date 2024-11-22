@@ -67,7 +67,7 @@ abstract class Thread implements ThreadInterface
     /**
      * @return string
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

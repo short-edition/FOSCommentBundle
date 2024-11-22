@@ -26,7 +26,7 @@ interface ThreadInterface
      *
      * @return string
      */
-    public function getId(): int;
+    public function getId(): ?int;
 
     /**
      * @param string

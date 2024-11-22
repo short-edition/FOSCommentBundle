@@ -93,7 +93,7 @@ abstract class Comment implements CommentInterface
      *
      * @return mixed
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

@@ -27,7 +27,7 @@ interface VoteInterface
     /**
      * @return mixed unique ID for this vote
      */
-    public function getId(): int;
+    public function getId(): ?int;
 
     /**
      * @return SignedCommentInterface
