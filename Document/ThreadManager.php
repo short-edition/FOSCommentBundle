@@ -26,17 +26,17 @@ class ThreadManager extends BaseThreadManager
     /**
      * @var DocumentManager
      */
-    protected $dm;
+    protected DocumentManager $dm;
 
     /**
      * @var DocumentRepository
      */
-    protected $repository;
+    protected DocumentRepository $repository;
 
     /**
      * @var string
      */
-    protected $class;
+    protected string $class;
 
     /**
      * Constructor.
@@ -44,7 +44,7 @@ class ThreadManager extends BaseThreadManager
      * @param DocumentManager $dm
      * @param string          $class
      */
-    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, string $class)
     {
         parent::__construct($dispatcher);
 
@@ -108,7 +108,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @param ThreadInterface $thread
      */
-    protected function doSaveThread(ThreadInterface $thread)
+    protected function doSaveThread(ThreadInterface $thread): void
     {
         $this->dm->persist($thread);
         $this->dm->flush();

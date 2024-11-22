@@ -26,17 +26,17 @@ class ThreadManager extends BaseThreadManager
     /**
      * @var EntityManager
      */
-    protected $em;
+    protected EntityManager $em;
 
     /**
      * @var EntityRepository
      */
-    protected $repository;
+    protected EntityRepository $repository;
 
     /**
      * @var string
      */
-    protected $class;
+    protected string $class;
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class ThreadManager extends BaseThreadManager
      * @param \Doctrine\ORM\EntityManager                                 $em
      * @param string                                                      $class
      */
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, string $class)
     {
         parent::__construct($dispatcher);
 
@@ -109,7 +109,7 @@ class ThreadManager extends BaseThreadManager
      *
      * @param ThreadInterface $thread
      */
-    protected function doSaveThread(ThreadInterface $thread)
+    protected function doSaveThread(ThreadInterface $thread): void
     {
         $this->em->persist($thread);
         $this->em->flush();

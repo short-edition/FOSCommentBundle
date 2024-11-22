@@ -27,17 +27,17 @@ class VoteManager extends BaseVoteManager
     /**
      * @var DocumentManager
      */
-    protected $dm;
+    protected DocumentManager $dm;
 
     /**
      * @var DocumentRepository
      */
-    protected $repository;
+    protected DocumentRepository $repository;
 
     /**
      * @var string
      */
-    protected $class;
+    protected string $class;
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class VoteManager extends BaseVoteManager
      * @param DocumentManager $dm
      * @param string          $class
      */
-    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, string $class)
     {
         parent::__construct($dispatcher);
 
@@ -63,7 +63,7 @@ class VoteManager extends BaseVoteManager
      *
      * @return VoteInterface
      */
-    public function findVoteBy(array $criteria)
+    public function findVoteBy(array $criteria): VoteInterface
     {
         return $this->repository->findOneBy($criteria);
     }
@@ -75,15 +75,13 @@ class VoteManager extends BaseVoteManager
      *
      * @return array|null
      */
-    public function findVotesByComment(VotableCommentInterface $comment)
+    public function findVotesByComment(VotableCommentInterface $comment): array
     {
         $qb = $this->repository->createQueryBuilder();
         $qb->field('comment.$id')->equals($comment->getId());
         $qb->sort('createdAt', 'ASC');
 
-        $votes = $qb->getQuery()->execute();
-
-        return $votes;
+        return $qb->getQuery()->execute();
     }
 
     /**
@@ -91,7 +89,7 @@ class VoteManager extends BaseVoteManager
      *
      * @return string
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->class;
     }
@@ -101,7 +99,7 @@ class VoteManager extends BaseVoteManager
      *
      * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
-    protected function doSaveVote(VoteInterface $vote)
+    protected function doSaveVote(VoteInterface $vote): void
     {
         $this->dm->persist($vote->getComment());
         $this->dm->persist($vote);

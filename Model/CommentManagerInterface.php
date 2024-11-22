@@ -93,7 +93,7 @@ interface CommentManagerInterface
      *
      * @return CommentInterface|null The comment or null when no comment found
      */
-    public function findCommentById($id): ?CommentInterface;
+    public function findCommentById(mixed $id): ?CommentInterface;
 
     /**
      * Creates a new comment object.
