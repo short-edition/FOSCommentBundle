@@ -24,42 +24,42 @@ class RoleVoteAcl implements VoteAclInterface
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Vote object.
      *
      * @var string
      */
-    private $voteClass;
+    private string $voteClass;
 
     /**
      * The role that will grant create permission for a vote.
      *
      * @var string
      */
-    private $createRole;
+    private string $createRole;
 
     /**
      * The role that will grant view permission for a vote.
      *
      * @var string
      */
-    private $viewRole;
+    private string $viewRole;
 
     /**
      * The role that will grant edit permission for a vote.
      *
      * @var string
      */
-    private $editRole;
+    private string $editRole;
 
     /**
      * The role that will grant delete permission for a vote.
      *
      * @var string
      */
-    private $deleteRole;
+    private string $deleteRole;
 
     /**
      * Constructor.
@@ -72,11 +72,11 @@ class RoleVoteAcl implements VoteAclInterface
      * @param string                        $voteClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
-                                $createRole,
-                                $viewRole,
-                                $editRole,
-                                $deleteRole,
-                                $voteClass
+                                string $createRole,
+                                string $viewRole,
+                                string $editRole,
+                                string $deleteRole,
+                                string $voteClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->createRole = $createRole;
@@ -91,7 +91,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted($this->createRole);
     }
@@ -103,7 +103,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canView(VoteInterface $vote)
+    public function canView(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted($this->viewRole);
     }
@@ -115,7 +115,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canEdit(VoteInterface $vote)
+    public function canEdit(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted($this->editRole);
     }
@@ -127,7 +127,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canDelete(VoteInterface $vote)
+    public function canDelete(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted($this->deleteRole);
     }
@@ -139,7 +139,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(VoteInterface $vote)
+    public function setDefaultAcl(VoteInterface $vote): void
     {
     }
 
@@ -148,7 +148,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
     }
 
@@ -157,7 +157,7 @@ class RoleVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
     }
 }

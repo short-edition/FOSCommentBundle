@@ -26,7 +26,7 @@ interface VoteAclInterface
      *
      * @return bool
      */
-    public function canCreate();
+    public function canCreate(): bool;
 
     /**
      * Checks if the user should be allowed to view a vote.
@@ -35,7 +35,7 @@ interface VoteAclInterface
      *
      * @return bool
      */
-    public function canView(VoteInterface $vote);
+    public function canView(VoteInterface $vote): bool;
 
     /**
      * Checks if the user should be allowed to edit a vote.
@@ -44,7 +44,7 @@ interface VoteAclInterface
      *
      * @return bool
      */
-    public function canEdit(VoteInterface $vote);
+    public function canEdit(VoteInterface $vote): bool;
 
     /**
      * Checks if the user should be allowed to delete a vote.
@@ -53,7 +53,7 @@ interface VoteAclInterface
      *
      * @return bool
      */
-    public function canDelete(VoteInterface $vote);
+    public function canDelete(VoteInterface $vote): bool;
 
     /**
      * Sets the default Acl permissions on a comment.
@@ -65,19 +65,19 @@ interface VoteAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(VoteInterface $vote);
+    public function setDefaultAcl(VoteInterface $vote): void;
 
     /**
      * Installs the Default 'fallback' Acl entries for generic access.
      *
      * @return void
      */
-    public function installFallbackAcl();
+    public function installFallbackAcl(): void;
 
     /**
      * Removes default Acl entries.
      *
      * @return void
      */
-    public function uninstallFallbackAcl();
+    public function uninstallFallbackAcl(): void;
 }

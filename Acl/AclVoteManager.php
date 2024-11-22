@@ -29,21 +29,21 @@ class AclVoteManager implements VoteManagerInterface
      *
      * @var VoteManagerInterface
      */
-    protected $realManager;
+    protected VoteManagerInterface $realManager;
 
     /**
      * The Vote Acl instance for querying Acls.
      *
      * @var VoteAclInterface
      */
-    protected $voteAcl;
+    protected VoteAclInterface $voteAcl;
 
     /**
      * The Comment Acl for querying Acls.
      *
      * @var CommentAclInterface
      */
-    protected $commentAcl;
+    protected CommentAclInterface $commentAcl;
 
     /**
      * {@inheritdoc}
@@ -58,7 +58,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findVoteById($id)
+    public function findVoteById(string $id): VoteInterface
     {
         $vote = $this->realManager->findVoteById($id);
 
@@ -72,7 +72,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findVoteBy(array $criteria)
+    public function findVoteBy(array $criteria): VoteInterface
     {
         $vote = $this->realManager->findVoteBy($criteria);
 
@@ -86,7 +86,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findVotesByComment(VotableCommentInterface $comment)
+    public function findVotesByComment(VotableCommentInterface $comment): array
     {
         $votes = $this->realManager->findVotesByComment($comment);
 
@@ -102,7 +102,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function saveVote(VoteInterface $vote)
+    public function saveVote(VoteInterface $vote): void
     {
         if (!$this->voteAcl->canCreate()) {
             throw new AccessDeniedException();
@@ -119,7 +119,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createVote(VotableCommentInterface $comment)
+    public function createVote(VotableCommentInterface $comment): VoteInterface
     {
         return $this->realManager->createVote($comment);
     }
@@ -127,7 +127,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->realManager->getClass();
     }

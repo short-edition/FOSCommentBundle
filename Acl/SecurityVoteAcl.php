@@ -35,33 +35,33 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @var ObjectIdentityRetrievalStrategy
      */
-    protected $objectRetrieval;
+    protected ObjectIdentityRetrievalStrategy $objectRetrieval;
 
     /**
      * The AclProvider.
      *
      * @var MutableAclProviderInterface
      */
-    protected $aclProvider;
+    protected MutableAclProviderInterface $aclProvider;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    protected AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Vote object.
      *
      * @var string
      */
-    protected $voteClass;
+    protected string $voteClass;
 
     /**
      * The Class OID for the Vote object.
      *
      * @var ObjectIdentity
      */
-    protected $oid;
+    protected ObjectIdentity $oid;
 
     /**
      * Constructor.
@@ -74,7 +74,7 @@ class SecurityVoteAcl implements VoteAclInterface
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
-                                $voteClass
+                                string $voteClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->objectRetrieval = $objectRetrieval;
@@ -88,7 +88,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
@@ -100,7 +100,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canView(VoteInterface $vote)
+    public function canView(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted('VIEW', $vote);
     }
@@ -112,7 +112,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canEdit(VoteInterface $vote)
+    public function canEdit(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted('EDIT', $vote);
     }
@@ -124,7 +124,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return bool
      */
-    public function canDelete(VoteInterface $vote)
+    public function canDelete(VoteInterface $vote): bool
     {
         return $this->authorizationChecker->isGranted('DELETE', $vote);
     }
@@ -136,7 +136,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(VoteInterface $vote)
+    public function setDefaultAcl(VoteInterface $vote): void
     {
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($vote);
         $acl = $this->aclProvider->createAcl($objectIdentity);
@@ -157,7 +157,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->voteClass);
 
@@ -179,7 +179,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->voteClass);
         $this->aclProvider->deleteAcl($oid);
@@ -197,7 +197,7 @@ class SecurityVoteAcl implements VoteAclInterface
      *
      * @return void
      */
-    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
+    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder): void
     {
         $builder->add('iddqd');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());

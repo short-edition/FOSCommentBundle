@@ -28,14 +28,14 @@ class AclThreadManager implements ThreadManagerInterface
      *
      * @var ThreadManagerInterface
      */
-    protected $realManager;
+    protected ThreadManagerInterface $realManager;
 
     /**
      * The Thread Acl instance for querying Acls.
      *
      * @var ThreadAclInterface
      */
-    protected $threadAcl;
+    protected ThreadAclInterface $threadAcl;
 
     /**
      * Constructor.
@@ -52,7 +52,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadById($id)
+    public function findThreadById(string $id): ThreadInterface
     {
         $thread = $this->realManager->findThreadById($id);
 
@@ -66,7 +66,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadBy(array $criteria)
+    public function findThreadBy(array $criteria): ThreadInterface
     {
         $thread = $this->realManager->findThreadBy($criteria);
 
@@ -80,7 +80,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadsBy(array $criteria)
+    public function findThreadsBy(array $criteria): array
     {
         $threads = $this->realManager->findThreadsBy($criteria);
 
@@ -96,7 +96,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findAllThreads()
+    public function findAllThreads(): array
     {
         $threads = $this->realManager->findAllThreads();
 
@@ -112,7 +112,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createThread($id = null)
+    public function createThread(?string $id = null): \FOS\CommentBundle\Model\Thread
     {
         return $this->realManager->createThread($id);
     }
@@ -120,7 +120,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function saveThread(ThreadInterface $thread)
+    public function saveThread(ThreadInterface $thread): void
     {
         if (!$this->threadAcl->canCreate()) {
             throw new AccessDeniedException();
@@ -142,7 +142,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function isNewThread(ThreadInterface $thread)
+    public function isNewThread(ThreadInterface $thread): bool
     {
         return $this->realManager->isNewThread($thread);
     }
@@ -150,7 +150,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getClass()
+    public function getClass(): string
     {
         return $this->realManager->getClass();
     }

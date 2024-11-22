@@ -26,7 +26,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canCreate();
+    public function canCreate(): bool;
 
     /**
      * Checks if the user should be able to view a comment.
@@ -35,7 +35,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canView(CommentInterface $comment);
+    public function canView(CommentInterface $comment): bool;
 
     /**
      * Checks if the user can reply to the supplied 'parent' comment
@@ -45,7 +45,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canReply(CommentInterface $parent = null);
+    public function canReply(?CommentInterface $parent = null): bool;
 
     /**
      * Checks if the user should be able to edit a comment.
@@ -54,7 +54,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(CommentInterface $comment);
+    public function canEdit(?CommentInterface $comment): bool;
 
     /**
      * Checks if the user should be able to delete a comment.
@@ -63,7 +63,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canDelete(CommentInterface $comment);
+    public function canDelete(CommentInterface $comment): bool;
 
     /**
      * Sets the default Acl permissions on a comment.
@@ -75,19 +75,19 @@ interface CommentAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(CommentInterface $comment);
+    public function setDefaultAcl(CommentInterface $comment): void;
 
     /**
      * Installs the Default 'fallback' Acl entries for generic access.
      *
      * @return void
      */
-    public function installFallbackAcl();
+    public function installFallbackAcl(): void;
 
     /**
      * Removes default Acl entries.
      *
      * @return void
      */
-    public function uninstallFallbackAcl();
+    public function uninstallFallbackAcl(): void;
 }

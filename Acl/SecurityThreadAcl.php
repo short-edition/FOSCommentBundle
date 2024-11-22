@@ -33,33 +33,33 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @var ObjectIdentityRetrievalStrategy
      */
-    protected $objectRetrieval;
+    protected ObjectIdentityRetrievalStrategy $objectRetrieval;
 
     /**
      * The AclProvider.
      *
      * @var MutableAclProviderInterface
      */
-    protected $aclProvider;
+    protected MutableAclProviderInterface $aclProvider;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    protected AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Thread object.
      *
      * @var string
      */
-    protected $threadClass;
+    protected string $threadClass;
 
     /**
      * The Class OID for the Thread object.
      *
      * @var ObjectIdentity
      */
-    protected $oid;
+    protected ObjectIdentity $oid;
 
     /**
      * Constructor.
@@ -72,7 +72,7 @@ class SecurityThreadAcl implements ThreadAclInterface
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
-                                $threadClass
+                                string $threadClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->objectRetrieval = $objectRetrieval;
@@ -86,7 +86,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
@@ -98,7 +98,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canView(ThreadInterface $thread)
+    public function canView(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted('VIEW', $thread);
     }
@@ -110,7 +110,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canEdit(ThreadInterface $thread)
+    public function canEdit(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted('EDIT', $thread);
     }
@@ -122,7 +122,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canDelete(ThreadInterface $thread)
+    public function canDelete(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted('DELETE', $thread);
     }
@@ -134,7 +134,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(ThreadInterface $thread)
+    public function setDefaultAcl(ThreadInterface $thread): void
     {
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($thread);
         $acl = $this->aclProvider->createAcl($objectIdentity);
@@ -149,7 +149,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->threadClass);
 
@@ -171,7 +171,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->threadClass);
         $this->aclProvider->deleteAcl($oid);
@@ -189,7 +189,7 @@ class SecurityThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
+    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder): void
     {
         $builder->add('iddqd');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());

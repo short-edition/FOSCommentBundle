@@ -24,42 +24,42 @@ class RoleThreadAcl implements ThreadAclInterface
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Thread object.
      *
      * @var string
      */
-    private $threadClass;
+    private string $threadClass;
 
     /**
      * The role that will grant create permission for a thread.
      *
      * @var string
      */
-    private $createRole;
+    private string $createRole;
 
     /**
      * The role that will grant view permission for a thread.
      *
      * @var string
      */
-    private $viewRole;
+    private string $viewRole;
 
     /**
      * The role that will grant edit permission for a thread.
      *
      * @var string
      */
-    private $editRole;
+    private string $editRole;
 
     /**
      * The role that will grant delete permission for a thread.
      *
      * @var string
      */
-    private $deleteRole;
+    private string $deleteRole;
 
     /**
      * Constructor.
@@ -72,11 +72,11 @@ class RoleThreadAcl implements ThreadAclInterface
      * @param string                        $threadClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
-                                $createRole,
-                                $viewRole,
-                                $editRole,
-                                $deleteRole,
-                                $threadClass
+                                string $createRole,
+                                string $viewRole,
+                                string $editRole,
+                                string $deleteRole,
+                                string $threadClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->createRole = $createRole;
@@ -91,7 +91,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted($this->createRole);
     }
@@ -103,7 +103,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canView(ThreadInterface $thread)
+    public function canView(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted($this->viewRole);
     }
@@ -115,7 +115,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canEdit(ThreadInterface $thread)
+    public function canEdit(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted($this->editRole);
     }
@@ -127,7 +127,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return bool
      */
-    public function canDelete(ThreadInterface $thread)
+    public function canDelete(ThreadInterface $thread): bool
     {
         return $this->authorizationChecker->isGranted($this->deleteRole);
     }
@@ -139,7 +139,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(ThreadInterface $thread)
+    public function setDefaultAcl(ThreadInterface $thread): void
     {
     }
 
@@ -148,7 +148,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
     }
 
@@ -157,7 +157,7 @@ class RoleThreadAcl implements ThreadAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
     }
 }

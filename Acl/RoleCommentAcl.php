@@ -24,42 +24,42 @@ class RoleCommentAcl implements CommentAclInterface
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Comment object.
      *
      * @var string
      */
-    private $commentClass;
+    private string $commentClass;
 
     /**
      * The role that will grant create permission for a comment.
      *
      * @var string
      */
-    private $createRole;
+    private string $createRole;
 
     /**
      * The role that will grant view permission for a comment.
      *
      * @var string
      */
-    private $viewRole;
+    private string $viewRole;
 
     /**
      * The role that will grant edit permission for a comment.
      *
      * @var string
      */
-    private $editRole;
+    private string $editRole;
 
     /**
      * The role that will grant delete permission for a comment.
      *
      * @var string
      */
-    private $deleteRole;
+    private string $deleteRole;
 
     /**
      * Constructor.
@@ -72,11 +72,11 @@ class RoleCommentAcl implements CommentAclInterface
      * @param string                        $commentClass
      */
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
-                                $createRole,
-                                $viewRole,
-                                $editRole,
-                                $deleteRole,
-                                $commentClass
+                                string $createRole,
+                                string $viewRole,
+                                string  $editRole,
+                                string $deleteRole,
+                                string  $commentClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->createRole = $createRole;
@@ -91,7 +91,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted($this->createRole);
     }
@@ -103,7 +103,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canView(CommentInterface $comment)
+    public function canView(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted($this->viewRole);
     }
@@ -115,7 +115,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canReply(CommentInterface $parent = null)
+    public function canReply(?CommentInterface $parent = null): bool
     {
         if (null !== $parent) {
             return $this->canCreate() && $this->canView($parent);
@@ -131,7 +131,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(CommentInterface $comment)
+    public function canEdit(?CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted($this->editRole);
     }
@@ -143,7 +143,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canDelete(CommentInterface $comment)
+    public function canDelete(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted($this->deleteRole);
     }
@@ -155,7 +155,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(CommentInterface $comment)
+    public function setDefaultAcl(CommentInterface $comment): void
     {
     }
 
@@ -164,7 +164,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
     }
 
@@ -173,7 +173,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
     }
 }

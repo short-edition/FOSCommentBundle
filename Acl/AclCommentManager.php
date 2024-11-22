@@ -29,21 +29,21 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @var CommentManagerInterface
      */
-    protected $realManager;
+    protected CommentManagerInterface $realManager;
 
     /**
      * The CommentAcl instance for checking permissions.
      *
      * @var CommentAclInterface
      */
-    protected $commentAcl;
+    protected CommentAclInterface $commentAcl;
 
     /**
      * The ThreadAcl instance for checking permissions.
      *
      * @var ThreadAclInterface
      */
-    protected $threadAcl;
+    protected ThreadAclInterface $threadAcl;
 
     /**
      * Constructor.
@@ -64,7 +64,7 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @throws AccessDeniedException
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, $sorter = null, $depth = null)
+    public function findCommentTreeByThread(ThreadInterface $thread, ?string $sorter = null, ?int $depth = null): array
     {
         $comments = $this->realManager->findCommentTreeByThread($thread, $sorter, $depth);
 
@@ -78,7 +78,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentsByThread(ThreadInterface $thread, $depth = null, $sorterAlias = null): array
+    public function findCommentsByThread(ThreadInterface $thread, ?int $depth = null, ?string $sorterAlias = null): array
     {
         $comments = $this->realManager->findCommentsByThread($thread, $depth, $sorterAlias);
 
@@ -94,7 +94,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByCommentId($commentId, $sorter = null): array
+    public function findCommentTreeByCommentId(mixed $commentId, ?string $sorter = null): array
     {
         $comments = $this->realManager->findCommentTreeByCommentId($commentId, $sorter);
 
@@ -142,7 +142,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      **/
-    public function findCommentById($id): ?CommentInterface
+    public function findCommentById(mixed $id): ?CommentInterface
     {
         $comment = $this->realManager->findCommentById($id);
 
@@ -156,7 +156,7 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createComment(ThreadInterface $thread, CommentInterface $parent = null): CommentInterface
+    public function createComment(ThreadInterface $thread, ?CommentInterface $parent = null): CommentInterface
     {
         return $this->realManager->createComment($thread, $parent);
     }

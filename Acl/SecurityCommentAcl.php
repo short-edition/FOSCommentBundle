@@ -42,26 +42,26 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @var MutableAclProviderInterface
      */
-    protected $aclProvider;
+    protected MutableAclProviderInterface $aclProvider;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    protected AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * The FQCN of the Comment object.
      *
      * @var string
      */
-    protected $commentClass;
+    protected string $commentClass;
 
     /**
      * The Class OID for the Comment object.
      *
      * @var ObjectIdentity
      */
-    protected $oid;
+    protected ObjectIdentity $oid;
 
     /**
      * Constructor.
@@ -74,7 +74,7 @@ class SecurityCommentAcl implements CommentAclInterface
     public function __construct(AuthorizationCheckerInterface $authorizationChecker,
                                 ObjectIdentityRetrievalStrategyInterface $objectRetrieval,
                                 MutableAclProviderInterface $aclProvider,
-                                $commentClass
+                                string $commentClass
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->objectRetrieval = $objectRetrieval;
@@ -88,7 +88,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canCreate()
+    public function canCreate(): bool
     {
         return $this->authorizationChecker->isGranted('CREATE', $this->oid);
     }
@@ -100,7 +100,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canView(CommentInterface $comment)
+    public function canView(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted('VIEW', $comment);
     }
@@ -112,7 +112,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canReply(CommentInterface $parent = null)
+    public function canReply(CommentInterface $parent = null): bool
     {
         if (null !== $parent) {
             return $this->canCreate() && $this->canView($parent);
@@ -128,7 +128,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(CommentInterface $comment)
+    public function canEdit(?CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted('EDIT', $comment);
     }
@@ -140,7 +140,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canDelete(CommentInterface $comment)
+    public function canDelete(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted('DELETE', $comment);
     }
@@ -152,7 +152,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function setDefaultAcl(CommentInterface $comment)
+    public function setDefaultAcl(CommentInterface $comment): void
     {
         $objectIdentity = $this->objectRetrieval->getObjectIdentity($comment);
         $acl = $this->aclProvider->createAcl($objectIdentity);
@@ -173,7 +173,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function installFallbackAcl()
+    public function installFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->commentClass);
 
@@ -195,7 +195,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    public function uninstallFallbackAcl()
+    public function uninstallFallbackAcl(): void
     {
         $oid = new ObjectIdentity('class', $this->commentClass);
         $this->aclProvider->deleteAcl($oid);
@@ -213,7 +213,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return void
      */
-    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder)
+    protected function doInstallFallbackAcl(AclInterface $acl, MaskBuilder $builder): void
     {
         $builder->add('iddqd');
         $acl->insertClassAce(new RoleSecurityIdentity('ROLE_SUPER_ADMIN'), $builder->get());
