@@ -66,7 +66,7 @@ interface CommentInterface
     /**
      * @return CommentInterface
      */
-    public function getParent(): CommentInterface;
+    public function getParent(): ?CommentInterface;
 
     /**
      * @param CommentInterface $comment

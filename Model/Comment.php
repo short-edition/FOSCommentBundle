@@ -33,7 +33,7 @@ abstract class Comment implements CommentInterface
      *
      * @var CommentInterface
      */
-    protected CommentInterface $parent;
+    protected ?CommentInterface $parent = null;
 
     /**
      * Comment text.
@@ -155,7 +155,7 @@ abstract class Comment implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function getParent(): CommentInterface
+    public function getParent(): ?CommentInterface
     {
         return $this->parent;
     }
