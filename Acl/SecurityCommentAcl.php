@@ -128,7 +128,7 @@ class SecurityCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(?CommentInterface $comment): bool
+    public function canEdit(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted('EDIT', $comment);
     }

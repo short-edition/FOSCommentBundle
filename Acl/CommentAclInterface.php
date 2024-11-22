@@ -54,7 +54,7 @@ interface CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(?CommentInterface $comment): bool;
+    public function canEdit(CommentInterface $comment): bool;
 
     /**
      * Checks if the user should be able to delete a comment.

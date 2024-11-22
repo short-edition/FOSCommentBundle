@@ -131,7 +131,7 @@ class RoleCommentAcl implements CommentAclInterface
      *
      * @return bool
      */
-    public function canEdit(?CommentInterface $comment): bool
+    public function canEdit(CommentInterface $comment): bool
     {
         return $this->authorizationChecker->isGranted($this->editRole);
     }
