@@ -12,7 +12,7 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use FOS\CommentBundle\Model\VotableCommentInterface;
 use FOS\CommentBundle\Model\VoteInterface;
 use FOS\CommentBundle\Model\VoteManager as BaseVoteManager;
@@ -33,7 +33,7 @@ class VoteManager extends BaseVoteManager
     /**
      * @var EntityRepository
      */
-    protected ServiceEntityRepository $repository;
+    protected EntityRepository $repository;
 
     /**
      * @var string
