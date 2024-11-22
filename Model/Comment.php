@@ -180,7 +180,7 @@ abstract class Comment implements CommentInterface
     /**
      * @return ThreadInterface
      */
-    public function getThread(): ThreadInterface
+    public function getThread(): Thread
     {
         return $this->thread;
     }
@@ -190,7 +190,7 @@ abstract class Comment implements CommentInterface
      *
      * @return void
      */
-    public function setThread(ThreadInterface $thread): void
+    public function setThread(Thread $thread): void
     {
         $this->thread = $thread;
     }

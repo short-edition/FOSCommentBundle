@@ -56,12 +56,12 @@ interface CommentInterface
     /**
      * @return ThreadInterface
      */
-    public function getThread(): ThreadInterface;
+    public function getThread(): Thread;
 
     /**
      * @param ThreadInterface $thread
      */
-    public function setThread(ThreadInterface $thread);
+    public function setThread(Thread $thread);
 
     /**
      * @return CommentInterface
