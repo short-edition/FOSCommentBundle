@@ -29,7 +29,7 @@ abstract class Vote implements VoteInterface
     /**
      * @var VotableCommentInterface
      */
-    protected ?CommentInterface $comment = null;
+    protected ?VotableCommentInterface $comment = null;
 
     /**
      * @var DateTime
