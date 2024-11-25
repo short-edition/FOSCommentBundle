@@ -73,7 +73,7 @@ abstract class Comment implements CommentInterface
      *
      * @var ThreadInterface
      */
-    protected ThreadInterface $thread;
+    protected ?ThreadInterface $thread = null;
 
     public function __construct()
     {
@@ -180,7 +180,7 @@ abstract class Comment implements CommentInterface
     /**
      * @return ThreadInterface
      */
-    public function getThread(): ThreadInterface
+    public function getThread(): ?ThreadInterface
     {
         return $this->thread;
     }

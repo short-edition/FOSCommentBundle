@@ -21,12 +21,12 @@ class Comment extends BaseComment
      *
      * @var ThreadInterface
      */
-    protected ThreadInterface $thread;
+    protected ?ThreadInterface $thread = null;
 
     /**
      * @return ThreadInterface
      */
-    public function getThread(): ThreadInterface
+    public function getThread(): ?ThreadInterface
     {
         return $this->thread;
     }

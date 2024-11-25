@@ -41,7 +41,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
      *
      * @var Thread
      */
-    protected ThreadInterface $thread;
+    protected ?ThreadInterface $thread = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -60,7 +60,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * @return Thread
      */
-    public function getThread(): ThreadInterface
+    public function getThread(): ?ThreadInterface
     {
         return $this->thread;
     }
