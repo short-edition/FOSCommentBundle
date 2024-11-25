@@ -30,14 +30,14 @@ interface VoteInterface
     public function getId(): ?int;
 
     /**
-     * @return SignedCommentInterface
+     * @return VotableCommentInterface
      */
-    public function getComment(): ?CommentInterface;
+    public function getComment(): ?VotableCommentInterface;
 
     /**
      * @param VotableCommentInterface $comment
      */
-    public function setComment(CommentInterface $comment);
+    public function setComment(VotableCommentInterface $comment): void;
 
     /**
      * @return int the modification applied to the comment by this vote

@@ -122,7 +122,7 @@ abstract class Vote implements VoteInterface
      *
      * @return VotableCommentInterface
      */
-    public function getComment(): ?CommentInterface
+    public function getComment(): ?VotableCommentInterface
     {
         return $this->comment;
     }
@@ -134,7 +134,7 @@ abstract class Vote implements VoteInterface
      *
      * @return void
      */
-    public function setComment(CommentInterface $comment): void
+    public function setComment(VotableCommentInterface $comment): void
     {
         $this->comment = $comment;
     }
