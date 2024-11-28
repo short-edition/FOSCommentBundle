@@ -55,11 +55,11 @@ class Tree
      *
      * @param mixed $id
      *
-     * @return Tree
+     * @return null|Tree
      */
-    public function traverse(mixed $id): Tree
+    public function traverse(mixed $id): ?Tree
     {
-        return $this->children[$id];
+        return $this->children[$id] ?? null;
     }
 
     /**

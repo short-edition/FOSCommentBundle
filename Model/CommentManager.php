@@ -121,10 +121,14 @@ abstract class CommentManager implements CommentManagerInterface
             }
 
             foreach ($ancestors as $ancestor) {
-                $path = $path->traverse($ancestor);
+                try {
+                    $path = $path->traverse($ancestor);
+                } catch (\Exception) {
+                    continue;
+                }
             }
 
-            $path->add($comment);
+            $path?->add($comment);
         }
 
         $tree = $tree->toArray();
