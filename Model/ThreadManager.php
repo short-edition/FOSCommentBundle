@@ -32,9 +32,6 @@ abstract class ThreadManager implements ThreadManagerInterface
         $this->dispatcher = $dispatcher;
     }
 
-    /**
-     * @param string $id
-     */
     public function findThreadById(int $id): ?ThreadInterface
     {
         return $this->findThreadBy(['id' => $id]);
@@ -42,8 +39,6 @@ abstract class ThreadManager implements ThreadManagerInterface
 
     /**
      * Creates an empty comment thread instance.
-     *
-     * @param bool $id
      */
     public function createThread(?int $id = null): Thread
     {
@@ -62,8 +57,6 @@ abstract class ThreadManager implements ThreadManagerInterface
 
     /**
      * Persists a thread.
-     *
-     * @param ThreadInterface $thread
      */
     public function saveThread(ThreadInterface $thread): void
     {
@@ -80,8 +73,6 @@ abstract class ThreadManager implements ThreadManagerInterface
      * Performs the persistence of the Thread.
      *
      * @abstract
-     *
-     * @param ThreadInterface $thread
      */
     abstract protected function doSaveThread(ThreadInterface $thread);
 }

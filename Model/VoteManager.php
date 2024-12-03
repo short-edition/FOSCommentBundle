@@ -37,18 +37,14 @@ abstract class VoteManager implements VoteManagerInterface
 
     /**
      * Finds a vote by id.
-     *
-     * @param  $id
      */
-    public function findVoteById(string $id): VoteInterface
+    public function findVoteById(string $id): ?VoteInterface
     {
         return $this->findVoteBy(['id' => $id]);
     }
 
     /**
      * Creates a Vote object.
-     *
-     * @param VotableCommentInterface $comment
      */
     public function createVote(VotableCommentInterface $comment): VoteInterface
     {
@@ -62,9 +58,6 @@ abstract class VoteManager implements VoteManagerInterface
         return $vote;
     }
 
-    /**
-     * @param VoteInterface $vote
-     */
     public function saveVote(VoteInterface $vote): void
     {
         if (null === $vote->getComment()) {
@@ -88,8 +81,6 @@ abstract class VoteManager implements VoteManagerInterface
      * Performs the persistence of the Vote.
      *
      * @abstract
-     *
-     * @param VoteInterface $vote
      */
     abstract protected function doSaveVote(VoteInterface $vote);
 }

@@ -52,7 +52,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadById(int $id): ThreadInterface
+    public function findThreadById(int $id): ?ThreadInterface
     {
         $thread = $this->realManager->findThreadById($id);
 
@@ -66,7 +66,7 @@ class AclThreadManager implements ThreadManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findThreadBy(array $criteria): ThreadInterface
+    public function findThreadBy(array $criteria): ?ThreadInterface
     {
         $thread = $this->realManager->findThreadBy($criteria);
 

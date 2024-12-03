@@ -95,7 +95,7 @@ class CommentManager extends BaseCommentManager
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByCommentId($commentId, ?string $sorter = null): array
+    public function findCommentTreeByCommentId($commentId, ?string $sorterAlias = null): array
     {
         $qb = $this->repository->createQueryBuilder('c');
         $qb->join('c.thread', 't')
@@ -109,7 +109,7 @@ class CommentManager extends BaseCommentManager
             return [];
         }
 
-        $sorter = $this->sortingFactory->getSorter($sorter);
+        $sorter = $this->sortingFactory->getSorter($sorterAlias);
 
         $trimParents = current($comments)->getAncestors();
 

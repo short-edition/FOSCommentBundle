@@ -20,53 +20,31 @@ interface VoteManagerInterface
 {
     /**
      * Returns the class of the Vote object.
-     *
-     * @return string
      */
     public function getClass(): string;
 
     /**
      * Creates a Vote object.
-     *
-     * @param VotableCommentInterface $comment
-     *
-     * @return VoteInterface
      */
     public function createVote(VotableCommentInterface $comment): VoteInterface;
 
     /**
      * Persists a vote.
-     *
-     * @param VoteInterface $vote
-     *
-     * @return void
      */
     public function saveVote(VoteInterface $vote): void;
 
     /**
      * Finds a vote by specified criteria.
-     *
-     * @param array $criteria
-     *
-     * @return VoteInterface
      */
     public function findVoteBy(array $criteria): ?VoteInterface;
 
     /**
      * Finds a vote by id.
-     *
-     * @param  $id
-     *
-     * @return VoteInterface
      */
-    public function findVoteById(string $id): VoteInterface;
+    public function findVoteById(string $id): ?VoteInterface;
 
     /**
      * Finds all votes for a comment.
-     *
-     * @param VotableCommentInterface $comment
-     *
-     * @return array of VoteInterface
      */
     public function findVotesByComment(VotableCommentInterface $comment): array;
 }

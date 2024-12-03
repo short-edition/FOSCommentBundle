@@ -58,7 +58,7 @@ class AclVoteManager implements VoteManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findVoteById(string $id): VoteInterface
+    public function findVoteById(string $id): ?VoteInterface
     {
         $vote = $this->realManager->findVoteById($id);
 

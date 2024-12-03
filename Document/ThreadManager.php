@@ -23,14 +23,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class ThreadManager extends BaseThreadManager
 {
-    /**
-     * @var DocumentManager
-     */
     protected DocumentManager $dm;
 
-    /**
-     * @var DocumentRepository
-     */
     protected DocumentRepository $repository;
 
     /**
@@ -38,12 +32,6 @@ class ThreadManager extends BaseThreadManager
      */
     protected string $class;
 
-    /**
-     * Constructor.
-     *
-     * @param DocumentManager $dm
-     * @param string          $class
-     */
     public function __construct(EventDispatcherInterface $dispatcher, DocumentManager $dm, string $class)
     {
         parent::__construct($dispatcher);
@@ -57,12 +45,8 @@ class ThreadManager extends BaseThreadManager
 
     /**
      * Finds one comment thread by the given criteria.
-     *
-     * @param array $criteria
-     *
-     * @return ThreadInterface
      */
-    public function findThreadBy(array $criteria): ThreadInterface
+    public function findThreadBy(array $criteria): ?ThreadInterface
     {
         return $this->repository->findOneBy($criteria);
     }
@@ -95,9 +79,7 @@ class ThreadManager extends BaseThreadManager
 
     /**
      * Returns the fully qualified comment thread class name.
-     *
-     * @return string
-     **/
+     */
     public function getClass(): string
     {
         return $this->class;
@@ -105,8 +87,6 @@ class ThreadManager extends BaseThreadManager
 
     /**
      * Saves a thread.
-     *
-     * @param ThreadInterface $thread
      */
     protected function doSaveThread(ThreadInterface $thread): void
     {

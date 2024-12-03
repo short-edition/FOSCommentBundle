@@ -64,9 +64,9 @@ class AclCommentManager implements CommentManagerInterface
      *
      * @throws AccessDeniedException
      */
-    public function findCommentTreeByThread(ThreadInterface $thread, ?string $sorter = null, ?int $depth = null): array
+    public function findCommentTreeByThread(ThreadInterface $thread, ?string $sorterAlias = null, ?int $depth = null): array
     {
-        $comments = $this->realManager->findCommentTreeByThread($thread, $sorter, $depth);
+        $comments = $this->realManager->findCommentTreeByThread($thread, $sorterAlias, $depth);
 
         if (!$this->authorizeViewCommentTree($comments)) {
             throw new AccessDeniedException();
@@ -94,9 +94,9 @@ class AclCommentManager implements CommentManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findCommentTreeByCommentId(mixed $commentId, ?string $sorter = null): array
+    public function findCommentTreeByCommentId(mixed $commentId, ?string $sorterAlias = null): array
     {
-        $comments = $this->realManager->findCommentTreeByCommentId($commentId, $sorter);
+        $comments = $this->realManager->findCommentTreeByCommentId($commentId, $sorterAlias);
 
         if (!$this->authorizeViewCommentTree($comments)) {
             throw new AccessDeniedException();

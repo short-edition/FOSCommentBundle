@@ -25,28 +25,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class VoteManager extends BaseVoteManager
 {
-    /**
-     * @var EntityManager
-     */
     protected EntityManager $em;
 
-    /**
-     * @var EntityRepository
-     */
     protected EntityRepository $repository;
 
-    /**
-     * @var string
-     */
     protected string $class;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Doctrine\ORM\EntityManager                                 $em
-     * @param $class
-     */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, string $class)
     {
         parent::__construct($dispatcher);
@@ -60,10 +44,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Finds a vote by specified criteria.
-     *
-     * @param array $criteria
-     *
-     * @return VoteInterface
      */
     public function findVoteBy(array $criteria): ?VoteInterface
     {
@@ -72,10 +52,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Finds all votes belonging to a comment.
-     *
-     * @param \FOS\CommentBundle\Model\VotableCommentInterface $comment
-     *
-     * @return array|null
      */
     public function findVotesByComment(VotableCommentInterface $comment): array
     {
@@ -89,8 +65,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Returns the fully qualified comment vote class name.
-     *
-     * @return string
      */
     public function getClass(): string
     {
@@ -99,8 +73,6 @@ class VoteManager extends BaseVoteManager
 
     /**
      * Persists a vote.
-     *
-     * @param \FOS\CommentBundle\Model\VoteInterface $vote
      */
     protected function doSaveVote(VoteInterface $vote): void
     {
