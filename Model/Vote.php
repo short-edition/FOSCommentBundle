@@ -24,7 +24,7 @@ abstract class Vote implements VoteInterface
     /**
      * @var mixed
      */
-    protected ?int $id = null;
+    public ?int $id = null;
 
     /**
      * @var VotableCommentInterface
