@@ -29,11 +29,6 @@ interface CommentInterface
     const int STATE_PENDING = 3;
 
     /**
-     * @return mixed unique ID for this comment
-     */
-    public function getId(): ?int;
-
-    /**
      * @return string name of the comment author
      */
     public function getAuthorName(): string;

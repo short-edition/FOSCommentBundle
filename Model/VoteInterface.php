@@ -25,11 +25,6 @@ interface VoteInterface
     const int VOTE_DOWN = -1;
 
     /**
-     * @return mixed unique ID for this vote
-     */
-    public function getId(): ?int;
-
-    /**
      * @return VotableCommentInterface
      */
     public function getComment(): ?VotableCommentInterface;

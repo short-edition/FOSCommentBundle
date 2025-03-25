@@ -21,14 +21,6 @@ use DateTime;
 interface ThreadInterface
 {
     /**
-     * Id, a unique string that binds the comments together in a thread (tree).
-     * It can be a url or really anything unique.
-     *
-     * @return string
-     */
-    public function getId(): ?int;
-
-    /**
      * @param string
      */
     public function setId(int $id);
