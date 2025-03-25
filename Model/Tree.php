@@ -33,7 +33,7 @@ class Tree
      *
      * @param CommentInterface|null $comment
      */
-    public function __construct(CommentInterface $comment = null)
+    public function __construct(?CommentInterface $comment = null)
     {
         $this->comment = $comment;
     }
@@ -47,7 +47,7 @@ class Tree
      */
     public function add(CommentInterface $comment): void
     {
-        $this->children[$comment->getId()] = new self($comment);
+        $this->children[$comment->id] = new self($comment);
     }
 
     /**

@@ -22,11 +22,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 abstract class Vote implements VoteInterface
 {
     /**
-     * @var mixed
-     */
-    public ?int $id = null;
-
-    /**
      * @var VotableCommentInterface
      */
     protected ?VotableCommentInterface $comment = null;
@@ -57,17 +52,7 @@ abstract class Vote implements VoteInterface
      */
     public function __toString()
     {
-        return 'Vote #'.$this->getId();
-    }
-
-    /**
-     * Return the comment unique id.
-     *
-     * @return mixed
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
+        return 'Vote #'.$this->id;
     }
 
     /**

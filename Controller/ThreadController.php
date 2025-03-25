@@ -109,7 +109,7 @@ class ThreadController extends AbstractFOSRestController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if (null !== $threadManager->findThreadById($thread->getId())) {
+            if (null !== $threadManager->findThreadById($thread->id)) {
                 $this->onCreateThreadErrorDuplicate($form);
             }
 
@@ -600,7 +600,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onCreateCommentSuccess(FormInterface $form, string $id, ?CommentInterface $parent = null): View|Response
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->getId()], Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -635,7 +635,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onCreateThreadSuccess(FormInterface $form): View|Response
     {
-        return View::createRouteRedirect('fos_comment_get_thread', ['id' => $form->getData()->getId()], Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread', ['id' => $form->getData()->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -666,7 +666,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onCreateThreadErrorDuplicate(FormInterface $form): Response
     {
-        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->getId()), Response::HTTP_BAD_REQUEST);
+        return new Response(sprintf("Duplicate thread id '%s'.", $form->getData()->id), Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -718,7 +718,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onEditCommentSuccess(FormInterface $form, string $id): View|Response
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->getId()], Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -751,7 +751,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onOpenThreadSuccess(FormInterface $form): View|Response
     {
-        return View::createRouteRedirect('fos_comment_edit_thread_commentable', ['id' => $form->getData()->getId(), 'value' => !$form->getData()->isCommentable()], Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_edit_thread_commentable', ['id' => $form->getData()->id, 'value' => !$form->getData()->isCommentable()], Response::HTTP_CREATED);
     }
 
     /**
@@ -767,7 +767,7 @@ class ThreadController extends AbstractFOSRestController
             ->setStatusCode(Response::HTTP_BAD_REQUEST)
             ->setData([
                 'form' => $form,
-                'id' => $form->getData()->getId(),
+                'id' => $form->getData()->id,
                 'isCommentable' => $form->getData()->isCommentable(),
             ])
             ->setTemplate('@FOSComment/Thread/commentable.html.twig');
@@ -785,7 +785,7 @@ class ThreadController extends AbstractFOSRestController
      */
     protected function onRemoveThreadCommentSuccess(FormInterface $form, int $id): View|Response
     {
-        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->getId()], Response::HTTP_CREATED);
+        return View::createRouteRedirect('fos_comment_get_thread_comment', ['id' => $id, 'commentId' => $form->getData()->id], Response::HTTP_CREATED);
     }
 
     /**
@@ -803,7 +803,7 @@ class ThreadController extends AbstractFOSRestController
             ->setData([
                 'form' => $form,
                 'id' => $id,
-                'commentId' => $form->getData()->getId(),
+                'commentId' => $form->getData()->id,
                 'value' => $form->getData()->getState(),
             ])
             ->setTemplate('@FOSComment/Thread/comment_remove.html.twig');

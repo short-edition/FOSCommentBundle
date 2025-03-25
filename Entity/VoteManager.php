@@ -58,7 +58,7 @@ class VoteManager extends BaseVoteManager
         $qb = $this->repository->createQueryBuilder('v');
         $qb->join('v.comment', 'c');
         $qb->andWhere('c.id = :commentId');
-        $qb->setParameter('commentId', $comment->getId());
+        $qb->setParameter('commentId', $comment->id);
 
         return $qb->getQuery()->execute();
     }

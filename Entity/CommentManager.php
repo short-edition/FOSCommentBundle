@@ -70,7 +70,7 @@ class CommentManager extends BaseCommentManager
                 ->join('c.thread', 't')
                 ->where('t.id = :thread')
                 ->orderBy('c.ancestors', 'ASC')
-                ->setParameter('thread', $thread->getId());
+                ->setParameter('thread', $thread->id);
 
         if (null !== $depth && $depth >= 0) {
             // Queries for an additional level so templates can determine

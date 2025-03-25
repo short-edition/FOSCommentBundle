@@ -58,7 +58,7 @@ class VoteManager extends BaseVoteManager
     public function findVotesByComment(VotableCommentInterface $comment): array
     {
         $qb = $this->repository->createQueryBuilder();
-        $qb->field('comment.$id')->equals($comment->getId());
+        $qb->field('comment.$id')->equals($comment->id);
         $qb->sort('createdAt', 'ASC');
 
         return $qb->getQuery()->execute();

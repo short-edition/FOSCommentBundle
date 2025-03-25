@@ -22,13 +22,6 @@ use InvalidArgumentException;
 abstract class Comment implements CommentInterface
 {
     /**
-     * Comment id.
-     *
-     * @var mixed
-     */
-    public ?int $id = null;
-
-    /**
      * Parent comment id.
      *
      * @var CommentInterface
@@ -85,17 +78,7 @@ abstract class Comment implements CommentInterface
      */
     public function __toString()
     {
-        return 'Comment #'.$this->getId();
-    }
-
-    /**
-     * Return the comment unique id.
-     *
-     * @return mixed
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
+        return 'Comment #'.$this->id;
     }
 
     /**
@@ -167,12 +150,12 @@ abstract class Comment implements CommentInterface
     {
         $this->parent = $parent;
 
-        if (!$parent->getId()) {
+        if (!$parent->id) {
             throw new InvalidArgumentException('Parent comment must be persisted.');
         }
 
         $ancestors = $parent->getAncestors();
-        $ancestors[] = $parent->getId();
+        $ancestors[] = $parent->id;
 
         $this->setAncestors($ancestors);
     }
