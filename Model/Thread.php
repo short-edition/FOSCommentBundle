@@ -20,8 +20,6 @@ use DateTime;
  */
 abstract class Thread implements ThreadInterface
 {
-    public ?int $id = null;
-
     /**
      * Tells if new comments can be added in this thread.
      *
@@ -56,16 +54,6 @@ abstract class Thread implements ThreadInterface
     public function __toString()
     {
         return 'Comment thread #'.$this->id;
-    }
-
-    /**
-     * @param  string
-     *
-     * @return null
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     /**

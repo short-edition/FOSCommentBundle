@@ -32,16 +32,6 @@
     </class>
 
     <class name="FOS\CommentBundle\Model\Thread">
-
-        <property name="id">
-            <constraint name="NotBlank">
-                <option name="message">Please enter an id</option>
-                <option name="groups">
-                    <value>NewThread</value>
-                </option>
-            </constraint>
-        </property>
-
         <property name="permalink">
             <constraint name="NotBlank">
                 <option name="message">Please enter a permalink</option>
