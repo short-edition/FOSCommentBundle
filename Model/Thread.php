@@ -20,6 +20,8 @@ use DateTime;
  */
 abstract class Thread implements ThreadInterface
 {
+    public ?int $id = null;
+
     /**
      * Tells if new comments can be added in this thread.
      *
