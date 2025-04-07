@@ -15,7 +15,7 @@ fos_rest:
 
 2.0.4 to 2.0.5
  * Editing is more robust and works even if you change the structure of the HTML
-   code. If you have customised the "comment_content.html.twig" you might need to
+   code. If you have customised the "comment_content.twig" you might need to
    apply the changes made in this version to your customisation.
 
 2.0.3 to 2.0.4
@@ -53,7 +53,7 @@ fos_rest:
 
 1.0.0 to 1.1.0
 
- * `Resources/Thread/comment.html.twig` has changed, adding a rawBody option. This
+ * `Resources/Thread/comment.twig` has changed, adding a rawBody option. This
    change is not relevant unless you are going to use RawComments
  * If you don't use the async template to render the comments, you will need to add
    a new variable defining the base url of the api:
@@ -79,7 +79,7 @@ fos_rest:
 0.9.2 to 1.0.0
 
  * You need to remove comment.js previously used by this bundle.
-   async.html.twig now includes its own javascript file automatically.
+   async.twig now includes its own javascript file automatically.
  * There is now a dependency on FOSRestBundle. Check the installation documentation
    for details.
  * Routing has changed, you must replace your existing fos_comment route import to
@@ -96,7 +96,7 @@ fos_rest:
    of a comment thread using the REST api.
 
    ``` jinja
-   {% include '@FOSComment/Thread/async.html.twig' with {'id': 'foo'} %}
+   {% include '@FOSComment/Thread/async.twig' with {'id': 'foo'} %}
    ```
 
 2012-01-21

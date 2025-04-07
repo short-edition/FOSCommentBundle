@@ -29,5 +29,5 @@
 {% endif %}
 
 {% for commentinfo in comments %}
-    {% include '@FOSComment/Thread/comment.html.twig' with { 'children': commentinfo.children, 'comment': commentinfo.comment, 'depth': depth, 'view': view } %}
+    {% include '@FOSComment/Thread/comment.twig' with { 'children': commentinfo.children, 'comment': commentinfo.comment, 'depth': depth, 'view': view } %}
 {% endfor %}

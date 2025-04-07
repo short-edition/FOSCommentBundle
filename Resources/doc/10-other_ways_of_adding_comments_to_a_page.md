@@ -26,7 +26,7 @@ public function somethingAction(Request $request)
 
     $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
 
-    return $this->render('AcmeDemoBundle:Controller:something.html.twig', array(
+    return $this->render('AcmeDemoBundle:Controller:something.twig', array(
         'comments' => $comments,
         'thread' => $thread,
     ));
@@ -41,7 +41,7 @@ template:
 {# ... #}
 <div id="fos_comment_thread" data-thread="{{ thread.id }}">
 
-{% include '@FOSComment/Thread/comments.html.twig' with {
+{% include '@FOSComment/Thread/comments.twig' with {
     'comments': comments,
     'thread': thread
 } %}
