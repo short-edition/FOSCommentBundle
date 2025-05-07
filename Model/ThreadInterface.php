@@ -21,11 +21,6 @@ use DateTime;
 interface ThreadInterface
 {
     /**
-     * @param string
-     */
-    public function setId(int $id);
-
-    /**
      * Url of the page where the thread lives.
      *
      * @return string
