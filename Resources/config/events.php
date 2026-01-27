@@ -18,11 +18,15 @@ return static function (ContainerConfigurator $container): void {
         ->tag('kernel.event_subscriber');
 
     $services->set('fos_comment.listener.thread_counters', ThreadCountersListener::class)
-        ->args([service('fos_comment.manager.comment')])
+        ->args([
+            service('fos_comment.manager.comment'),
+        ])
         ->tag('kernel.event_subscriber');
 
     $services->set('fos_comment.listener.thread_permalink', ThreadPermalinkListener::class)
-        ->args([service('request_stack')])
+        ->args([
+            service('request_stack'),
+        ])
         ->tag('kernel.event_subscriber');
 
     $services->set('fos_comment.listener.comment_blamer', CommentBlamerListener::class)
