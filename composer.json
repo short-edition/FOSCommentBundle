@@ -62,18 +62,16 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "6.0.x-dev"
+      "dev-master": "3.0.x-dev"
     }
   },
   "autoload": {
     "psr-4": {
-      "FOS\\CommentBundle\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "FOS\\CommentBundle\\Tests\\": "tests/"
-    }
+      "FOS\\CommentBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
   },
   "prefer-stable": true
 }
