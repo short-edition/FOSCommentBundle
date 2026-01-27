@@ -15,7 +15,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -29,22 +29,21 @@ class FOSCommentExtension extends Extension
     /**
      * Loads and processes configuration to configure the Container.
      *
-     * @throws InvalidArgumentException
-     *
-     * @param array            $configs
+     * @param array $configs
      * @param ContainerBuilder $container
      *
      * @return void
+     * @throws \InvalidArgumentException
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         if ('custom' !== $config['db_driver']) {
-            $loader->load(sprintf('%s.xml', $config['db_driver']));
+            $loader->load(sprintf('%s.php', $config['db_driver']));
             $def = new Definition('Doctrine\ORM\EntityManager', ['%fos_comment.model_manager_name%']);
             $def->setPublic(false);
             $def->setFactory([new Reference('doctrine'), 'getManager']);
@@ -53,7 +52,7 @@ class FOSCommentExtension extends Extension
         }
 
         foreach (['controller', 'events', 'form', 'twig', 'sorting', 'model'] as $basename) {
-            $loader->load(sprintf('%s.xml', $basename));
+            $loader->load(sprintf('%s.php', $basename));
         }
 
         // only load acl services if acl is enabled for the project
@@ -77,11 +76,10 @@ class FOSCommentExtension extends Extension
         if ('mongodb' === $config['db_driver']) {
             if (null === $config['model_manager_name']) {
                 $container->setAlias('fos_comment.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
-                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             } else {
                 $container->setAlias('fos_comment.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false));
-                $container->getAlias('fos_comment.document_manager')->setPublic(true);
             }
+            $container->getAlias('fos_comment.document_manager')->setPublic(true);
         }
 
         $container->setParameter('fos_comment.form.comment.type', $config['form']['comment']['type']);
@@ -113,7 +111,7 @@ class FOSCommentExtension extends Extension
         $container->getAlias('fos_comment.form_factory.vote')->setPublic(true);
 
         if (isset($config['service']['spam_detection'])) {
-            $loader->load('spam_detection.xml');
+            $loader->load('spam_detection.php');
             $container->setAlias('fos_comment.spam_detection.comment', $config['service']['spam_detection']['comment']);
             $container->getAlias('fos_comment.spam_detection.comment')->setPublic(true);
         }
@@ -121,7 +119,7 @@ class FOSCommentExtension extends Extension
         if (isset($config['service']['markup'])) {
             $container->setAlias('fos_comment.markup', new Alias($config['service']['markup'], false));
             $container->getAlias('fos_comment.markup')->setPublic(true);
-            $loader->load('markup.xml');
+            $loader->load('markup.php');
         }
 
         $container->setAlias('fos_comment.manager.thread', $config['service']['manager']['thread']);
@@ -134,8 +132,8 @@ class FOSCommentExtension extends Extension
 
     protected function loadAcl(ContainerBuilder $container, array $config): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('acl.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('acl.php');
 
         foreach ([1 => 'create', 'view', 'edit', 'delete'] as $index => $perm) {
             $container->getDefinition('fos_comment.acl.comment.roles')->replaceArgument($index, $config['acl_roles']['comment'][$perm]);
