@@ -12,6 +12,7 @@
 namespace FOS\CommentBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use FOS\CommentBundle\Model\CommentInterface;
 use FOS\CommentBundle\Model\CommentManager as BaseCommentManager;
@@ -29,7 +30,7 @@ class CommentManager extends BaseCommentManager
     /**
      * @var EntityManager
      */
-    protected EntityManager $em;
+    protected EntityManagerInterface $em;
 
     /**
      * @var EntityRepository
@@ -49,7 +50,7 @@ class CommentManager extends BaseCommentManager
      * @param EntityManager            $em
      * @param string                   $class
      */
-    public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, EntityManager $em, string $class)
+    public function __construct(EventDispatcherInterface $dispatcher, SortingFactory $factory, EntityManagerInterface $em, string $class)
     {
         parent::__construct($dispatcher, $factory);
 
